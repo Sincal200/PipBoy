@@ -1,1 +1,1 @@
-Lineamientos: 
+Lineamientos: Pruebas conneccion con jira
