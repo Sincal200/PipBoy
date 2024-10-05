@@ -2,7 +2,7 @@ const express = require('express');
 const { mongoose } = require('mongoose');
 const dotenv = require('dotenv').config();
 const http = require('http');
-const socketIo = require('socket.io');
+const WebSocket = require('ws');
 
 const app = express();
 
@@ -17,22 +17,23 @@ const port = 3000;
 
 const server = http.createServer(app);
 
-const io = socketIo(server, {
-  cors: {
-    origin: '*', // Permitir todas las conexiones
-    methods: ['GET', 'POST']
-  }
-});
+// Inicializar WebSocket Server
+const wss = new WebSocket.Server({ server });
 
-io.on('connection', (socket) => {
+wss.on('connection', (ws) => {
   console.log('New client connected');
 
-  socket.on('message', (data) => {
-    console.log('Message received:', data);
-    io.emit('message', data);
+  ws.on('message', (message) => {
+    console.log('Message received:', message);
+    // Emitir mensaje a todos los clientes conectados
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(message);
+      }
+    });
   });
 
-  socket.on('disconnect', () => {
+  ws.on('close', () => {
     console.log('Client disconnected');
   });
 });
