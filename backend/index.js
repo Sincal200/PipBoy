@@ -26,6 +26,12 @@ wss.on('connection', (ws) => {
 // Pasar el servidor WebSocket al controlador
 dataController.setWebSocketServer(wss);
 
+server.on('upgrade', (request, socket, head) => {
+  wss.handleUpgrade(request, socket, head, (ws) => {
+      wss.emit('connection', ws, request);
+  });
+});
+
 const port = 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
