@@ -24,7 +24,7 @@ const Sidebar = () => {
             src="https://img.freepik.com/vector-gratis/circulo-azul-usuario-blanco_78370-4707.jpg"
             className="w-20 h-20 object-cover rounded-full ring-2 ring-gray-300"
           />
-          <h1 className="text-xl text-white font-bold">Jonathan Ramrio Elías</h1>
+          <h1 className="text-xl text-white font-bold">Jonathan jasinto Elías</h1>
           <p className="bg-primary-100 py-2 px-4 rounded-full text-white">
             Pro Pip
           </p>
