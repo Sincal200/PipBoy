@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/', require('./routes/dataRoutes'));
 
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ noServer: true });
 
 wss.on('connection', (ws) => {
     dataController.handleWebSocketConnection(ws);
