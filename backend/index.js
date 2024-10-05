@@ -1,8 +1,11 @@
 const express = require('express');
-const {mongoose} = require('mongoose');
 const dotenv = require('dotenv').config();
+const {mongoose} = require('mongoose');
+const http = require('http');
+const WebSocket = require('ws');
 const app = express();
-
+const dataRoutes = require('./routes/dataRoutes');
+const dataController = require('./controllers/dataController');
 
 mongoose.connect(process.env.MONGO_URL, {
   })
@@ -12,6 +15,16 @@ mongoose.connect(process.env.MONGO_URL, {
 app.use(express.json());
 
 app.use('/', require('./routes/dataRoutes'));
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', (ws) => {
+    dataController.handleWebSocketConnection(ws);
+});
+
+// Pasar el servidor WebSocket al controlador
+dataController.setWebSocketServer(wss);
 
 const port = 3000;
 app.listen(port, () => {
