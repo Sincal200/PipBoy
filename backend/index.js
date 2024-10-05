@@ -1,38 +1,50 @@
+// index.js
 const express = require('express');
+const { mongoose } = require('mongoose');
 const dotenv = require('dotenv').config();
-const {mongoose} = require('mongoose');
-const http = require('http');
-const WebSocket = require('ws');
-const app = express();
-const dataRoutes = require('./routes/dataRoutes');
-const dataController = require('./controllers/dataController');
+const http = require('http'); // Importar http
+const socketIo = require('socket.io'); // Importar socket.io
 
-mongoose.connect(process.env.MONGO_URL, {
-  })
+const app = express();
+
+mongoose.connect(process.env.MONGO_URL, {})
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log('Database not connected', err));
 
 app.use(express.json());
-
 app.use('/', require('./routes/dataRoutes'));
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ noServer: true });
+const port = 3000;
 
-wss.on('connection', (ws) => {
-    dataController.handleWebSocketConnection(ws);
+// Crear servidor HTTP
+const server = http.createServer(app);
+
+// Inicializar socket.io con el servidor HTTP
+const io = socketIo(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST']
+  }
 });
 
-// Pasar el servidor WebSocket al controlador
-dataController.setWebSocketServer(wss);
+// Configurar eventos de conexión de WebSocket
+io.on('connection', (socket) => {
+  console.log('New client connected');
 
-server.on('upgrade', (request, socket, head) => {
-  wss.handleUpgrade(request, socket, head, (ws) => {
-      wss.emit('connection', ws, request);
+  // Ejemplo de evento de mensaje
+  socket.on('message', (data) => {
+    console.log('Message received:', data);
+    // Emitir mensaje a todos los clientes conectados
+    io.emit('message', data);
+  });
+
+  // Evento de desconexión
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
   });
 });
 
-const port = 3000;
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-    });
+// Usar el servidor HTTP para escuchar en el puerto
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
