@@ -1,6 +1,7 @@
 export const startSending = (setFetchActive) => {
   fetch('https://pipboy-3s72.onrender.com/start-sending', {
-    method: 'POST'
+    method: 'POST',
+    credentials: 'include',
   })
   .then(response => response.json())
   .then(data => {

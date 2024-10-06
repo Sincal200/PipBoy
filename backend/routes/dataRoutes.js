@@ -6,8 +6,8 @@ const { create, test, getAll, startTemperature, stopTemperature, startSensorData
 
 
 const corsOptions = {
-  origin: 'https://pipboy-frontend.onrender.com', // Origen permitido
-  credentials: true, // Permitir credenciales
+  origin: 'https://pipboy-frontend.onrender.com',
+  credentials: true,
 };
 
 router.use(cors(corsOptions));
