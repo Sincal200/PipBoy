@@ -15,7 +15,8 @@ router.use(cors());
 router.post('/temperatures', create);
 router.get('/', test);
 router.get('/getTemperatures', getAll);
-router.post('start-temperature', startTemperature);
-router.post('stop-temperature', stopTemperature);
+router.post('/start-temperature', startTemperature);
+router.post('/stop-temperature', stopTemperature);
+
 
 module.exports = router;
