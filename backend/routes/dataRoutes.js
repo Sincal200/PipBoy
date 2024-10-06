@@ -8,6 +8,8 @@ const { create, test, getAll, startTemperature, stopTemperature, startSensorData
 const corsOptions = {
   origin: 'https://pipboy-frontend.onrender.com',
   credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
 };
 
 router.use(cors(corsOptions));
