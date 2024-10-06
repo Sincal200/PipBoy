@@ -1,5 +1,6 @@
 const WebSocket = require('ws');
 const EventEmitter = require('events');
+const { debounce } = require('lodash');
 
 let sensorData = { ir: null, red: null };
 let heartRateData = { bpm: null, avgBpm: null };
@@ -8,42 +9,42 @@ let wsClient = null;
 
 const dataEmitter = new EventEmitter();
 
-const handleSensorData = (data) => {
+const handleSensorData = async (data) => {
     sensorData = data;
     console.log('Sensor data processed:', sensorData);
 };
 
-const handleHeartRateData = (data) => {
+const handleHeartRateData = async (data) => {
     heartRateData = data;
     console.log('Heart rate data processed:', heartRateData);
 };
 
-const handleTemperatureData = (data) => {
+const handleTemperatureData = async (data) => {
     temperatureData = data;
     console.log('Temperature data processed:', temperatureData);
 };
 
-// Register event listeners
-dataEmitter.on('sensor', handleSensorData);
-dataEmitter.on('heartRate', handleHeartRateData);
-dataEmitter.on('temperature', handleTemperatureData);
+// Register event listeners with debouncing
+dataEmitter.on('sensor', debounce(handleSensorData, 100));
+dataEmitter.on('heartRate', debounce(handleHeartRateData, 100));
+dataEmitter.on('temperature', debounce(handleTemperatureData, 100));
 
 const wss = new WebSocket.Server({ noServer: true });
 
 wss.on('connection', (ws) => {
-    wsClient = ws; // Guardar la conexión WebSocket del ESP32
+    wsClient = ws; // Save the WebSocket connection
 
     ws.on('message', (message) => {
         try {
-            const data = JSON.parse(message); // Parsear los datos recibidos
-            dataEmitter.emit(data.type, data); // Emitir evento basado en el tipo de dato
-            console.log('Datos recibidos:', data);
+            const data = JSON.parse(message); // Parse the received data
+            dataEmitter.emit(data.type, data); // Emit event based on data type
+            console.log('Data received:', data);
         } catch (error) {
-            console.error('Error al parsear los datos:', error);
+            console.error('Error parsing data:', error);
         }
     });
 
-    ws.send('Conexión establecida con el servidor WebSocket');
+    ws.send('Connection established with WebSocket server');
 });
 
 const getSensorData = () => sensorData;
