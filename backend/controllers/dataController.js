@@ -24,6 +24,7 @@ const sensorData = async (req, res) => {
 }
 
 const startSensorData = async (req, res) => {
+    const wsClient = getWsClient();
     if (wsClient && wsClient.readyState === WebSocket.OPEN) {
         wsClient.send('START');
         res.json({ message: 'Señal de inicio enviada al ESP32' });
@@ -33,6 +34,7 @@ const startSensorData = async (req, res) => {
 };
 
 const stopSensorData = async (req, res) => {
+    const wsClient = getWsClient();
     if (wsClient && wsClient.readyState === WebSocket.OPEN) {
         wsClient.send('START');
         res.json({ message: 'Señal de inicio enviada al ESP32' });
