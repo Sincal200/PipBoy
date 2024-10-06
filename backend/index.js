@@ -18,7 +18,7 @@ const port = 3000;
 const server = http.createServer(app);
 
 // Inicializar WebSocket Server
-const wss = new WebSocket.Server({ noServer: true });
+const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
   console.log('New client connected');
