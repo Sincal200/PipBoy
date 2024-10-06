@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
-self.onmessage = function (e) {
-    const { maxDataPoints } = e.data;
+self.onmessage = function (event) {
+    const { maxDataPoints } = event.data;
   
     const fetchData = () => {
       fetch('https://pipboy-3s72.onrender.com/sensor-data')
