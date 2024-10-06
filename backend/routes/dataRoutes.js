@@ -18,8 +18,8 @@ router.get('/getTemperatures', getAll);
 router.get('/sensor-data', sensorData);
 router.post('/start-temperature', startTemperature);
 router.post('/stop-temperature', stopTemperature);
-router.post('start-sending', startSensorData);
-router.post('stop-sending', stopSensorData);
+router.post('/start-sending', startSensorData);
+router.post('/stop-sending', stopSensorData);
 
 
 
