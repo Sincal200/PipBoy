@@ -11,7 +11,7 @@ const corsOptions = {
   };
 
 router.use(
-    cors(corsOptions),
+    cors
 )
 
 router.post('/temperatures', create);
