@@ -9,17 +9,17 @@ function Graficas() {
   const [sensorData, setSensorData] = useState([]);
   const [fetchActive, setFetchActive] = useState(false);
   const [heartRateActive, setHeartRateActive] = useState(false);
-  const [temperatureActive, setTemperatureActive] = useState(false);
+    const [temperatureActive, setTemperatureActive] = useState(false);
   const maxDataPoints = 20; // Limitar a los últimos 20 puntos de datos
-
+  
   useEffect(() => {
     if (!fetchActive && !heartRateActive) return;
-
+  
     const worker = new Worker(new URL('../functions/sensorDataWorker.js', import.meta.url));
     worker.postMessage({ maxDataPoints });
-
-    worker.onmessage = (e) => {
-      const { type, newData, error } = e.data;
+  
+    worker.onmessage = (event) => {
+      const { type, newData, error } = event.data;
       if (type === 'newData') {
         setSensorData(prevData => {
           const updatedData = [...prevData, newData];
@@ -32,7 +32,7 @@ function Graficas() {
         console.error(error);
       }
     };
-
+  
     return () => worker.terminate();
   }, [fetchActive, heartRateActive]);
 
