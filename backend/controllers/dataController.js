@@ -18,6 +18,29 @@ const create = async (req, res) => {
     res.json(newTemperature);
 }
 
+
+const sensorData = async (req, res) => {
+    res.jscon(getSensorData());
+}
+
+const startSensorData = async (req, res) => {
+    if (wsClient && wsClient.readyState === WebSocket.OPEN) {
+        wsClient.send('START');
+        res.json({ message: 'Señal de inicio enviada al ESP32' });
+    } else {
+        res.status(500).json({ message: 'No hay conexión WebSocket con el ESP32' });
+    }
+};
+
+const stopSensorData = async (req, res) => {
+    if (wsClient && wsClient.readyState === WebSocket.OPEN) {
+        wsClient.send('START');
+        res.json({ message: 'Señal de inicio enviada al ESP32' });
+    } else {
+        res.status(500).json({ message: 'No hay conexión WebSocket con el ESP32' });
+    }
+};
+
 const startTemperature = async (req, res) => {
     const wsClient = getWsClient();
     if (wsClient && wsClient.readyState === WebSocket.OPEN) {
@@ -44,7 +67,9 @@ module.exports = {
     test,
     getAll,
     startTemperature,
-    stopTemperature
-
+    stopTemperature,
+    sensorData,
+    startSensorData,
+    stopSensorData
 }
 
