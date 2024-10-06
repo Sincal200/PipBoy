@@ -40,6 +40,17 @@ function Graficas() {
     navigate('/');
   };
 
+  const handleButtonClick = () => {
+    console.log('fetchActive before click:', fetchActive);
+    if (fetchActive) {
+      stopSending();
+    } else {
+      startSending();
+    }
+    setFetchActive(!fetchActive);
+    console.log('fetchActive after click:', !fetchActive);
+  };
+
   return (
     <div>
       <button onClick={handleNavigateHome} className="bg-primary-100 py-2 px-6 rounded-xl text-white inline-block mt-4">
@@ -47,8 +58,8 @@ function Graficas() {
       </button>
       <Container>
         <Title>Heart Rate Monitor</Title>
-        <Button onClick={() => fetchActive ? stopSending() : startSending()} style={{ marginBottom: '20px' }}>
-        {fetchActive ? 'Stop Monitoring' : 'Start Monitoring'}
+        <Button onClick={handleButtonClick} style={{ marginBottom: '20px' }}>
+          {fetchActive ? 'Stop Monitoring' : 'Start Monitoring'}
         </Button>
         <ChartContainer>
           <ResponsiveContainer>
