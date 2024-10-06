@@ -9,7 +9,7 @@ function Graficas() {
   const [sensorData, setSensorData] = useState([]);
   const [fetchActive, setFetchActive] = useState(false);
   const [heartRateActive, setHeartRateActive] = useState(false);
-    const [temperatureActive, setTemperatureActive] = useState(false);
+  const [temperatureActive, setTemperatureActive] = useState(false);
   const maxDataPoints = 20; // Limitar a los últimos 20 puntos de datos
   
   useEffect(() => {
@@ -43,11 +43,10 @@ function Graficas() {
   const handleButtonClick = () => {
     console.log('fetchActive before click:', fetchActive);
     if (fetchActive) {
-      stopSending();
+      stopSending(setFetchActive);
     } else {
-      startSending();
+      startSending(setFetchActive);
     }
-    setFetchActive(!fetchActive);
     console.log('fetchActive after click:', !fetchActive);
   };
 

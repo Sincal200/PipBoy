@@ -20,7 +20,7 @@ const create = async (req, res) => {
 
 
 const sensorData = async (req, res) => {
-    res.jscon(getSensorData());
+    res.json(getSensorData());
 }
 
 const startSensorData = async (req, res) => {
