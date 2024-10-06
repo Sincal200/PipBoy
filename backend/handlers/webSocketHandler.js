@@ -1,18 +1,24 @@
 const WebSocket = require('ws');
-const sensorService = require('../services/sensorService');
+
+let sensorData = { ir: null, red: null };
+let heartRateData = { bpm: null, avgBpm: null };
+let temperatureData = { temperatureC: null, temperatureF: null };
+let wsClient = null;
 
 const wss = new WebSocket.Server({ noServer: true });
 
 wss.on('connection', (ws) => {
+    wsClient = ws; // Guardar la conexión WebSocket del ESP32
+
     ws.on('message', (message) => {
         try {
             const data = JSON.parse(message); // Parsear los datos recibidos
             if (data.type === 'sensor') {
-                sensorService.updateSensorData(data); // Guardar los datos del sensor
+                sensorData = data; // Guardar los datos del sensor
             } else if (data.type === 'heartRate') {
-                sensorService.updateHeartRateData(data); // Guardar los datos de frecuencia cardíaca
+                heartRateData = data; // Guardar los datos de frecuencia cardíaca
             } else if (data.type === 'temperature') {
-                sensorService.updateTemperatureData(data); // Guardar los datos de temperatura
+                temperatureData = data; // Guardar los datos de temperatura
             }
             console.log('Datos recibidos:', data);
         } catch (error) {
@@ -23,4 +29,15 @@ wss.on('connection', (ws) => {
     ws.send('Conexión establecida con el servidor WebSocket');
 });
 
-module.exports = wss;
+const getSensorData = () => sensorData;
+const getHeartRateData = () => heartRateData;
+const getTemperatureData = () => temperatureData;
+const getWsClient = () => wsClient;
+
+module.exports = {
+    wss,
+    getSensorData,
+    getHeartRateData,
+    getTemperatureData,
+    getWsClient
+};

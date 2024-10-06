@@ -3,6 +3,7 @@ const { mongoose } = require('mongoose');
 const dotenv = require('dotenv').config();
 const http = require('http');
 const WebSocket = require('ws');
+const { wss } = require('./handlers/webSocketHandler');
 
 const app = express();
 
@@ -18,7 +19,7 @@ const port = 3000;
 const server = http.createServer(app);
 
 // Inicializar WebSocket Server
-const wss = new WebSocket.Server({ server });
+
 
 wss.on('connection', (ws) => {
   console.log('New client connected');

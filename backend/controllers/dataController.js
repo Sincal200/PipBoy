@@ -1,4 +1,6 @@
 const dataService = require('../services/dataService');
+const { getSensorData, getHeartRateData, getTemperatureData, getWsClient } = require('../handlers/webSocketHandler');
+
 
 const test = (req, res) => {
     res.json('Hello from the server!');
@@ -15,11 +17,33 @@ const create = async (req, res) => {
     res.json(newTemperature);
 }
 
+const startTemperature = async (req, res) => {
+    const wsClient = getWsClient();
+    if (wsClient && wsClient.readyState === WebSocket.OPEN) {
+        wsClient.send('STARTT');
+        res.json({ message: 'Señal de inicio enviada al ESP32' });
+    } else {
+        res.status(500).json({ message: 'No hay conexión WebSocket con el ESP32' });
+    }
+}
+
+const stopTemperature = async (req, res) => {
+    const wsClient = getWsClient();
+    if (wsClient && wsClient.readyState === WebSocket.OPEN) {
+        wsClient.send('STOPT');
+        res.json({ message: 'Señal de parada enviada al ESP32' });
+    } else {
+        res.status(500).json({ message: 'No hay conexión WebSocket con el ESP32' });
+    }
+}
 
 
 module.exports = {
     create,
     test,
-    getAll
+    getAll,
+    startTemperature,
+    stopTemperature
+
 }
 
