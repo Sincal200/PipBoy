@@ -6,11 +6,11 @@ const { create, test, getAll, startTemperature, stopTemperature} = require('../c
 
 
 const corsOptions = {
-    origin: 'http://localhost:3000', // Origen permitido
-    credentials: false, // Permitir credenciales
-  };
+  origin: 'http://127.0.0.1:5500', // Origen permitido
+  credentials: true, // Permitir credenciales
+};
 
-router.use(cors());
+router.use(cors(corsOptions));
 
 router.post('/temperatures', create);
 router.get('/', test);

@@ -1,5 +1,6 @@
 const dataService = require('../services/dataService');
 const { getSensorData, getHeartRateData, getTemperatureData, getWsClient } = require('../handlers/webSocketHandler');
+const WebSocket = require('ws');
 
 
 const test = (req, res) => {
