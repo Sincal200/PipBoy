@@ -6,7 +6,11 @@ import Home from './pages/Home';
 import Graficas from './pages/Graficas';
 import Pagina2 from './pages/Pagina2';
 import Pagina3 from './pages/Pagina3';
+import axios from 'axios'
 {/* aca añadi lo de las rutas y otras cositas*/}
+
+axios.defaults.baseURL = 'https://pipboy-3s72.onrender.com';
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
