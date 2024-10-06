@@ -10,9 +10,7 @@ const corsOptions = {
     credentials: false, // Permitir credenciales
   };
 
-router.use(
-    cors(corsOptions),
-)
+router.use(cors());
 
 router.post('/temperatures', create);
 router.get('/', test);
