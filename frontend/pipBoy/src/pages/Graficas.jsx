@@ -2,39 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Container, Title, Button, ChartContainer } from '../components/StyledComponents';
-import { startSending, stopSending, startHeartRate, stopHeartRate, startTemperature, stopTemperature } from '../functions/apiFunctions';
+import { startSending, stopSending} from '../functions/apiFunctions';
 
 function Graficas() {
   const navigate = useNavigate();
   const [sensorData, setSensorData] = useState([]);
   const [fetchActive, setFetchActive] = useState(false);
-  const [heartRateActive, setHeartRateActive] = useState(false);
-  const [temperatureActive, setTemperatureActive] = useState(false);
   const maxDataPoints = 20; // Limitar a los últimos 20 puntos de datos
   
   useEffect(() => {
-    if (!fetchActive && !heartRateActive) return;
+    if (!fetchActive) return;
   
-    const worker = new Worker(new URL('../functions/sensorDataWorker.js', import.meta.url));
+    const worker = new Worker(new URL('../functions/sensorTemperatureWorker.js', import.meta.url));
     worker.postMessage({ maxDataPoints });
   
     worker.onmessage = (event) => {
       const { type, newData, error } = event.data;
       if (type === 'newData') {
-        setSensorData(prevData => {
-          const updatedData = [...prevData, newData];
-          if (updatedData.length > maxDataPoints) {
-            updatedData.shift(); // Quitar el dato más antiguo
-          }
-          return updatedData;
-        });
+        setSensorDataTemperature(prevData => [...prevData, newData]);
       } else if (type === 'error') {
         console.error(error);
       }
     };
   
     return () => worker.terminate();
-  }, [fetchActive, heartRateActive]);
+  }, [fetchActive]);
 
   const handleNavigateHome = () => {
     navigate('/');

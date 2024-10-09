@@ -49,7 +49,7 @@ export const stopHeartRate = (setHeartRateActive) => {
 };
 
 export const startTemperature = (setTemperatureActive) => {
-  axios.post('https://esp32-jk3y.onrender.com/api/start-temperature')
+  axios.post('/start-temperature')
     .then(response => {
       console.log(response.data.message);
       setTemperatureActive(true);
@@ -61,7 +61,7 @@ export const startTemperature = (setTemperatureActive) => {
 };
 
 export const stopTemperature = (setTemperatureActive) => {
-  axios.post('https://esp32-jk3y.onrender.com/api/stop-temperature')
+  axios.post('/stop-temperature')
     .then(response => {
       console.log(response.data.message);
       setTemperatureActive(false);
