@@ -23,6 +23,10 @@ const sensorData = async (req, res) => {
     res.json(getSensorData());
 }
 
+const sensorTemperature = async (req, res) => {
+    res.json(getTemperatureData());
+}
+
 const startSensorData = async (req, res) => {
     const wsClient = getWsClient();
     if (wsClient && wsClient.readyState === WebSocket.OPEN) {
@@ -72,6 +76,7 @@ module.exports = {
     stopTemperature,
     sensorData,
     startSensorData,
-    stopSensorData
+    stopSensorData,
+    sensorTemperature
 }
 

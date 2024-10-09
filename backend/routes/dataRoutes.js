@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { create, test, getAll, startTemperature, stopTemperature, startSensorData, stopSensorData, sensorData} = require('../controllers/dataController');
+const { create, test, getAll, startTemperature, stopTemperature, startSensorData, stopSensorData, sensorData, sensorTemperature} = require('../controllers/dataController');
 
 const allowedOrigins = [
   'https://pipboy-frontend.onrender.com',
@@ -31,6 +31,7 @@ router.post('/start-temperature', startTemperature);
 router.post('/stop-temperature', stopTemperature);
 router.post('/start-sending', startSensorData);
 router.post('/stop-sending', stopSensorData);
+router.get('/sensor-temperature', sensorTemperature);
 
 
 
