@@ -18,6 +18,7 @@ function Home() {
   return (
     <>
       {/* Section 1 */}
+      
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mt-10 gap-8">
         {/* Card 1 */}
         <div className="bg-primary-100 p-8 rounded-xl text-gray-300 flex flex-col gap-6">
@@ -26,7 +27,7 @@ function Home() {
           <span className="text-5xl text-white">Pulse</span>
           {/* con onclick para ir a otro lado */}
           <button onClick={paraGraficas} className="bg-red-100/20 py-2 px-6 rounded-xl text-white w-full">
-            hola
+            Measure Now
           </button>
 
         </div>
@@ -52,7 +53,7 @@ function Home() {
                 </div>
               </div>
               <div className="flex items-center gap-2 text-gray-500 text-sm">
-                <button className="bg-primary-100 py-2 px-6 rounded-xl text-white w-full">
+                <button onClick={paraPagina2} className="bg-primary-100 py-2 px-6 rounded-xl text-white w-full">
                   Measure now
                 </button>
               </div>
@@ -74,7 +75,7 @@ function Home() {
                 </div>
               </div>
               <div className="flex items-center gap-2 text-gray-500 text-sm">
-                <button className="bg-primary-100 py-2 px-6 rounded-xl text-white w-full">
+                <button onClick={paraPagina3} className="bg-primary-100 py-2 px-6 rounded-xl text-white w-full">
                   Measure now
                 </button>
               </div>
