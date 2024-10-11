@@ -71,3 +71,27 @@ export const stopTemperature = (setTemperatureActive) => {
       alert('Error al enviar la señal de parada de temperatura');
     });
 };
+
+export const startOxygen = (setOxygenActive) => {
+  axios.post('/start-oxygen')
+    .then(response => {
+      console.log(response.data.message);
+      setOxygenActive(true);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al enviar la señal de inicio de oxigeno');
+    });
+};
+
+export const stopOxygen = (setOxygenActive) => {
+  axios.post('/stop-oxygen')
+    .then(response => {
+      console.log(response.data.message);
+      setOxygenActive(false);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al enviar la señal de inicio de oxigeno');
+    });
+};
