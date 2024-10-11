@@ -3,7 +3,7 @@ const router = express.Router();
 const cors = require('cors');
 const { create, test, getAll, startTemperature, stopTemperature, 
   startSensorData, stopSensorData, sensorData, sensorTemperature, 
-  sensorOxygen, startOxygen, stopOxygen} = require('../controllers/dataController');
+  sensorOxygen, startOxygen, stopOxygen, startHeartRate, stopHeartRate, sensorHeartRate} = require('../controllers/dataController');
 
 const allowedOrigins = [
   'https://pipboy-frontend.onrender.com',
@@ -37,6 +37,9 @@ router.get('/sensor-temperature', sensorTemperature);
 router.post('/start-oxygen', startOxygen);
 router.post('/stop-oxygen', stopOxygen);
 router.get('/sensor-oxygen', sensorOxygen);
+router.post('/start-heart-rate', startHeartRate);
+router.post('/stop-heart-rate', stopHeartRate);
+router.get('/sensor-heart-rate', sensorHeartRate);
 
 
 
