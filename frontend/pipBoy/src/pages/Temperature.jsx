@@ -64,7 +64,7 @@ function Temperature() {
         Back
       </button>
       <div className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-md w-full">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Body Temperaturel</h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Body Temperature</h1>
         {temperature !== null ? (
           <div className="text-4xl md:text-7xl font-bold text-blue-500 mb-4">
             {temperature}°C
