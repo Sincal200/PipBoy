@@ -90,7 +90,7 @@ const stopOxygen = async (req, res) => {
     const wsClient = getWsClient();
     if (wsClient && wsClient.readyState === WebSocket.OPEN) {
         wsClient.send('STOPO');
-        res.json({ message: 'Señal de inicio enviada al ESP32' });
+        res.json({ message: 'Señal de parada enviada al ESP32' });
     } else {
         res.status(500).json({ message: 'No hay conexión WebSocket con el ESP32' });
     }

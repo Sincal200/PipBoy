@@ -9,10 +9,10 @@ function Home() {
     navigate('/graficas');
   };
   const paraPagina2 = () => {
-    navigate('/pagina2');
+    navigate('/oxygen');
   };
   const paraPagina3 = () => {
-    navigate('/pagina3');
+    navigate('/temperature');
   };
 
   return (
@@ -23,7 +23,7 @@ function Home() {
         {/* Card 1 */}
         <div className="bg-primary-100 p-8 rounded-xl text-gray-300 flex flex-col gap-6">
           <RiLineChartLine className="text-5xl" />
-          <h4 className="text-2xl">BPM Graphics</h4>
+          <h4 className="text-2xl">HR Graphics</h4>
           <span className="text-5xl text-white">Pulse</span>
           {/* con onclick para ir a otro lado */}
           <button onClick={paraGraficas} className="bg-red-100/20 py-2 px-6 rounded-xl text-white w-full">
@@ -38,8 +38,8 @@ function Home() {
                 98
               </span>
               <div>
-                <h3 className="font-bold">AVR</h3>
-                <p className="text-gray-500">beats per minute</p>
+                <h3 className="font-bold">AVG</h3>
+                <p className="text-gray-500">Beats per Minute</p>
               </div>
             </div>
             <div className="bg-primary-100/10 rounded-xl p-4">
@@ -48,8 +48,8 @@ function Home() {
                   32
                 </span>
                 <div>
-                  <h3 className="font-bold">blood oxygen</h3>
-                  <p className="text-gray-500">Oxigen</p>
+                  <h3 className="font-bold">Blood Oxygen</h3>
+                  <p className="text-gray-500">Percentage</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 text-gray-500 text-sm">
@@ -71,7 +71,7 @@ function Home() {
                 </span>
                 <div>
                   <h3 className="font-bold">Temperature</h3>
-                  <p className="text-gray-500">in blood</p>
+                  <p className="text-gray-500">Body</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 text-gray-500 text-sm">

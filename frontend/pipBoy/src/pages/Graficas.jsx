@@ -51,7 +51,7 @@ function Graficas() {
   return (
     <div>
       <button onClick={handleNavigateHome} className="bg-primary-100 py-2 px-6 rounded-xl text-white inline-block mt-4">
-        Volver
+      Back
       </button>
       <Container>
         <Title>Heart Rate Monitor</Title>
