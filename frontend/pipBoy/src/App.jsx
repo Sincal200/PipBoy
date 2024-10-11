@@ -17,7 +17,7 @@ function AppContent() {
   const showHeader = !excludedPaths.includes(location.pathname);
 
   return (
-    <div className="grid lg:grid-cols-4 xl:grid-cols-6 min-h-screen">
+    <div className="grid lg:grid-cols-4 xl:grid-cols-6 h-screen">
       <Sidebar />
       <main className="lg:col-span-3 xl:col-span-5 bg-gray-100 p-8 min-h-screen overflow-y-auto">
         {showHeader && <Header />}
