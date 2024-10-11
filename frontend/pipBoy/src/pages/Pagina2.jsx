@@ -21,7 +21,6 @@ function Pagina2() {
     }
   };
 
-
   useEffect(() => {
     if (!fetchActive) return;
 
@@ -56,20 +55,26 @@ function Pagina2() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <button onClick={handleNavigateHome} className="bg-primary-100 py-2 px-6 rounded-xl text-white inline-block mb-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-green-200 to-blue-200 p-4 relative">
+      <button 
+        onClick={handleNavigateHome} 
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 absolute top-4 left-4">
         Volver
       </button>
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md text-center">
-        <h1 className="text-2xl font-bold mb-4">Nivel de Oxígeno en Sangre</h1>
-        <div className="text-6xl font-bold text-blue-500 mb-4">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">Nivel de Oxígeno en Sangre</h1>
+        <div className="text-4xl md:text-6xl font-bold text-blue-500 mb-4">
           {oxygenLevel !== null ? `${oxygenLevel}%` : '--'}
         </div>
-        <div className="flex justify-around">
-          <button onClick={handleStartOxygen} className="bg-green-500 py-2 px-6 rounded-xl text-white">
+        <div className="flex flex-col md:flex-row justify-around">
+          <button 
+            onClick={handleStartOxygen} 
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4 md:mb-0">
             Iniciar
           </button>
-          <button onClick={handleStopOxygen} className="bg-red-500 py-2 px-6 rounded-xl text-white">
+          <button 
+            onClick={handleStopOxygen} 
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
             Detener
           </button>
         </div>
