@@ -13,13 +13,19 @@ function Graficas() {
   useEffect(() => {
     if (!fetchActive) return;
   
-    const worker = new Worker(new URL('../functions/sensorTemperatureWorker.js', import.meta.url));
+    const worker = new Worker(new URL('../functions/sensorDataWorker.js', import.meta.url));
     worker.postMessage({ maxDataPoints });
   
     worker.onmessage = (event) => {
       const { type, newData, error } = event.data;
       if (type === 'newData') {
-        setSensorDataTemperature(prevData => [...prevData, newData]);
+        setSensorData(prevData => {
+          const updatedData = [...prevData, newData];
+          if (updatedData.length > maxDataPoints) {
+            updatedData.shift(); // Quitar el dato más antiguo
+          }
+          return updatedData;
+        });
       } else if (type === 'error') {
         console.error(error);
       }

@@ -5,28 +5,39 @@ import { startTemperature, stopTemperature } from '../functions/apiFunctions';
 
 function Pagina3() {
   const [temperature, setTemperature] = useState(null);
-  const [sensorDataTemperature, setSensorDataTemperature] = useState([]);
-  const [worker, setWorker] = useState(null);
   const [fetchActive, setFetchActive] = useState(false);
+  const [intervalId, setIntervalId] = useState(null);
+  const [timeoutId, setTimeoutId] = useState(null);
   const navigate = useNavigate();
+
+  const sensorTemperature = async () => {
+    try {
+      const response = await axios.get('https://pipboy-3s72.onrender.com/sensor-temperature');
+      if (response.data.temperatureC !== undefined) {
+        setTemperature(response.data.temperatureC);
+      }
+    } catch (error) {
+      console.error('Error fetching temperature data:', error);
+    }
+  };
 
   useEffect(() => {
     if (!fetchActive) return;
 
-    const sensorTemperature = async () => {
-      try {
-        const response = await axios.get('https://pipboy-3s72.onrender.com/sensor-temperature');
-        if (response.data.temperatureC !== undefined) {
-          setTemperature(response.data.temperatureC);
-        }
-      } catch (error) {
-        console.error('Error fetching temperature data:', error);
-      }
+    // Primera medición a los 500ms
+    const timeout = setTimeout(() => {
+      sensorTemperature();
+      // Luego configurar el intervalo para cada 25 segundos
+      const interval = setInterval(sensorTemperature, 25000);
+      setIntervalId(interval);
+    }, 500);
+    setTimeoutId(timeout);
+
+    // Limpiar el timeout y el intervalo al desmontar el componente o cuando fetchActive cambie
+    return () => {
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
     };
-
-    const intervalId = setInterval(sensorTemperature, 500); // Obtener datos cada 500ms
-
-    return () => clearInterval(intervalId); // Limpiar el intervalo al desmontar el componente
   }, [fetchActive]);
 
   const handleNavigateHome = () => {
@@ -37,6 +48,8 @@ function Pagina3() {
     console.log('fetchActive before click:', fetchActive);
     if (fetchActive) {
       stopTemperature(setFetchActive);
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
     } else {
       startTemperature(setFetchActive);
     }
@@ -51,19 +64,18 @@ function Pagina3() {
         Volver
       </button>
       <div className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-md w-full">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">Temperatura Actual</h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Temperatura Actual</h1>
         {temperature !== null ? (
-          <div className="text-7xl font-bold text-blue-500 mb-4">
+          <div className="text-4xl md:text-7xl font-bold text-blue-500 mb-4">
             {temperature}°C
           </div>
         ) : (
-          <div className="text-2xl text-gray-500 mb-4">Cargando...</div>
+          <div className="text-xl md:text-2xl text-gray-500 mb-4">Cargando...</div>
         )}
         <button 
           onClick={handleButtonClick}
           className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4">
           {fetchActive ? 'Detener Medición' : 'Iniciar Medición'}
-
         </button>
       </div>
     </div>
