@@ -33,7 +33,7 @@ const handleOxygenData = (data) => {
 dataEmitter.on('sensor', handleSensorData);
 dataEmitter.on('heartRate', handleHeartRateData);
 dataEmitter.on('temperature', handleTemperatureData);
-dataEmitter.on('oxygen', handleOxygenData);
+dataEmitter.on('SpO2', handleOxygenData);
 
 const wss = new WebSocket.Server({ noServer: true });
 
