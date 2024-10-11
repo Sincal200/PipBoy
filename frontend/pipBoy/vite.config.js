@@ -6,5 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     historyApiFallback: true,
+    contentBase: './',
+    hot: true
   },
 })
