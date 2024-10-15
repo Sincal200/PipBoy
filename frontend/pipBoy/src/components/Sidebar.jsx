@@ -30,38 +30,39 @@ const Sidebar = () => {
           </p>
         </div>
         {/* Nav */}
-        <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] overflow-y-scroll flex flex-col justify-between gap-8">
-          <nav className="flex flex-col gap-8">
-            <a
-              href="#"
-              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
-            >
-              <RiHome3Line /> Home
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
-            >
-              <RiFileCopyLine /> BPM Graphics
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
-            >
-              <RiWalletLine /> Mmhg
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
-            >
-              <RiPieChartLine /> Alertas
-            </a>
-          </nav>
-          <div className="bg-primary-900/50 text-white p-4 rounded-xl">
-            <p className="text-gray-400">Having troubles?</p>
-            <a href="#">Contact us PipBoy</a>
-          </div>
-        </div>
+        <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] flex flex-col justify-between gap-8">
+  <nav className="flex flex-col gap-8">
+    <a
+      href="#"
+      className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
+    >
+      <RiHome3Line /> Home
+    </a>
+    <a
+      href="#"
+      className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
+    >
+      <RiFileCopyLine /> BPM Graphics
+    </a>
+    <a
+      href="#"
+      className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
+    >
+      <RiWalletLine /> Mmhg
+    </a>
+    <a
+      href="#"
+      className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
+    >
+      <RiPieChartLine /> Alertas
+    </a>
+  </nav>
+  <div className="bg-primary-900/50 text-white p-4 rounded-xl">
+    <p className="text-gray-400">Having troubles?</p>
+    <a href="#">Contact us PipBoy</a>
+  </div>
+</div>
+
       </div>
       {/* Button mobile */}
       <button
