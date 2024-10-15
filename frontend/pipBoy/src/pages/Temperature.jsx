@@ -12,7 +12,7 @@ function Temperature() {
 
   const sensorTemperature = async () => {
     try {
-      const response = await axios.get('https://pipboy-3s72.onrender.com/sensor-temperature');
+      const response = await axios.get('/sensor-temperature');
       if (response.data.temperatureC !== undefined) {
         setTemperature(response.data.temperatureC);
       }

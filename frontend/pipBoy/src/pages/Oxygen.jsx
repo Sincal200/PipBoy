@@ -24,7 +24,7 @@ function Oxygen() {
 
   const sensorHeartRate = async () => {
     try {
-      const response = await axios.get('sensor-heart-rate');
+      const response = await axios.get('/sensor-heart-rate');
       if (response.data.avgBpm !== undefined) {
         setaverageBPM(response.data.avgBpm);
       }

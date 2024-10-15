@@ -8,7 +8,7 @@ import Oxygen from './pages/Oxygen';
 import axios from 'axios';
 import Temperature from './pages/Temperature';
 
-axios.defaults.baseURL = 'https://pipboy-3s72.onrender.com';
+axios.defaults.baseURL = 'http://64.227.110.203:3000';
 axios.defaults.withCredentials = true;
 
 function AppContent() {
