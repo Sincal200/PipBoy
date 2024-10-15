@@ -4,7 +4,7 @@ self.onmessage = function (event) {
     const { maxDataPoints } = event.data;
   
     const fetchData = () => {
-      fetch('https://pipboy-3s72.onrender.com/sensor-data')
+      fetch('http://64.227.110.203:3000/sensor-data')
         .then(response => response.json())
         .then(data => {
           if(data.type === 'sensor'){

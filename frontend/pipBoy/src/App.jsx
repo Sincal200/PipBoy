@@ -4,28 +4,28 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Home from './pages/Home';
 import Graficas from './pages/Graficas';
-import Pagina2 from './pages/Pagina2';
-import Pagina3 from './pages/Pagina3';
+import Oxygen from './pages/Oxygen';
 import axios from 'axios';
+import Temperature from './pages/Temperature';
 
-axios.defaults.baseURL = 'https://pipboy-3s72.onrender.com';
+axios.defaults.baseURL = 'http://64.227.110.203:3000';
 axios.defaults.withCredentials = true;
 
 function AppContent() {
-  const location = useLocation();
-  const excludedPaths = ['/graficas', '/pagina2', '/pagina3']; // Agrega más rutas según sea necesario
+  let location = useLocation();
+  const excludedPaths = ['/graficas', '/oxygen', '/temperature']; // Agrega más rutas según sea necesario
   const showHeader = !excludedPaths.includes(location.pathname);
 
   return (
-    <div className="grid lg:grid-cols-4 xl:grid-cols-6 min-h-screen">
+    <div className="grid lg:grid-cols-4 xl:grid-cols-6 h-screen">
       <Sidebar />
       <main className="lg:col-span-3 xl:col-span-5 bg-gray-100 p-8 min-h-screen overflow-y-auto">
         {showHeader && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/graficas" element={<Graficas />} />
-          <Route path="/pagina2" element={<Pagina2 />} />
-          <Route path="/pagina3" element={<Pagina3 />} />
+          <Route path="/oxygen" element={<Oxygen />} />
+          <Route path="/temperature" element={<Temperature />} />
         </Routes>
       </main>
     </div>
