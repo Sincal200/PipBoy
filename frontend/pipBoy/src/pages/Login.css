@@ -1,0 +1,106 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #12003d, #2e00d3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  
+  .login-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(10px);
+    width: 300px;
+  }
+  
+  .login-container h2 {
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+  }
+  
+  .login-container .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .login-container .input-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  .login-container .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-align: center;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-container .input-group input:focus {
+    border-color: #fff;
+  }
+  
+  .login-container .input-group i {
+    margin-right: 10px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #03015f;
+    border: none;
+    border-radius: 25px;
+    color: rgba(2, 4, 119, 0.815);
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(255, 20, 147, 0.2);
+  }
+  
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.2);;
+  }
+  
+  button.register {
+    background-color: transparent;
+    border: 1px solid white;
+    margin-top: 20px;
+  }
+  
+  button.register:hover {
+    background-color: white;
+    color: #2001aa;
+  }
+  
+  .login-container .forgot-password,
+  .login-container .remember-me {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+  }
+  
+  .login-container .forgot-password a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .login-container .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
+  .login-container .remember-me input {
+    margin-right: 10px;
+  }
+  
