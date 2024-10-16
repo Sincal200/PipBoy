@@ -19,6 +19,17 @@ const create = async (req, res) => {
     res.json(newTemperature);
 }
 
+const createOxygen = async (req, res) => {
+    const oxygen = req.body;
+    const newOxygen = await dataService.createOxygen(oxygen);
+    res.json(newOxygen);
+}
+
+const getAllOxygen = async (req, res) => {
+    const oxygen = await dataService.getAllOxygen();
+    res.json(oxygen);
+}
+
 
 const sensorData = async (req, res) => {
     res.json(getSensorData());
@@ -131,6 +142,8 @@ module.exports = {
     sensorOxygen,
     startHeartRate,
     stopHeartRate,
-    sensorHeartRate
+    sensorHeartRate,
+    createOxygen,
+    getAllOxygen
 }
 

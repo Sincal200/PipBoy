@@ -4,7 +4,8 @@ const cors = require('cors');
 const addUserMiddleware = require('../middlewares/addUserMiddleware');
 const { create, test, getAll, startTemperature, stopTemperature, 
   startSensorData, stopSensorData, sensorData, sensorTemperature, 
-  sensorOxygen, startOxygen, stopOxygen, startHeartRate, stopHeartRate, sensorHeartRate} = require('../controllers/dataController');
+  sensorOxygen, startOxygen, stopOxygen, startHeartRate, 
+  stopHeartRate, sensorHeartRate, getAllOxygen, createOxygen} = require('../controllers/dataController');
 
 const allowedOrigins = [
   'https://pipboy-frontend.onrender.com',
@@ -28,8 +29,11 @@ const corsOptions = {
 router.use(cors(corsOptions));
 
 router.post('/temperatures',addUserMiddleware , create);
+router.post('/oxygen', createOxygen);
 router.get('/', test);
 router.get('/getTemperatures', getAll);
+router.get('/getOxygen', getAllOxygen);
+
 router.get('/sensor-data', sensorData);
 router.post('/start-temperature', startTemperature);
 router.post('/stop-temperature', stopTemperature);
