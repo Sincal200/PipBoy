@@ -103,4 +103,31 @@ body {
   .login-container .remember-me input {
     margin-right: 10px;
   }
+
+  @media (max-width: 600px) {
+    .login-container {
+      width: 90%; 
+      padding: 40px; 
+    }
+  
+    .login-container h2 {
+      font-size: 1.2rem; 
+    }
+  
+    .login-container .input-group input {
+      padding: 8px; 
+      font-size: 0.9rem; 
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 1024px) {
+    .login-container {
+      width: 80%; 
+      padding: 60px; 
+    }
+  
+    .login-container h2 {
+      font-size: 1.4rem; 
+    }
+  }
   
