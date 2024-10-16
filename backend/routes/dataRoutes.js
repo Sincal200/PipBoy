@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const addUserMiddleware = require('../middlewares/addUserMiddleware');
 const { create, test, getAll, startTemperature, stopTemperature, 
   startSensorData, stopSensorData, sensorData, sensorTemperature, 
   sensorOxygen, startOxygen, stopOxygen, startHeartRate, stopHeartRate, sensorHeartRate} = require('../controllers/dataController');
@@ -26,7 +27,7 @@ const corsOptions = {
 
 router.use(cors(corsOptions));
 
-router.post('/temperatures', create);
+router.post('/temperatures',addUserMiddleware , create);
 router.get('/', test);
 router.get('/getTemperatures', getAll);
 router.get('/sensor-data', sensorData);
