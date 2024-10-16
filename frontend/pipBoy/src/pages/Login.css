@@ -10,13 +10,13 @@ body {
   
   .login-container {
     background: rgba(255, 255, 255, 0.1);
-    padding: 40px;
+    padding: 80px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
     color: white;
     backdrop-filter: blur(10px);
-    width: 300px;
+    width: 600px;
   }
   
   .login-container h2 {
@@ -57,15 +57,15 @@ body {
   
   button {
     width: 100%;
-    padding: 10px;
-    background-color: #03015f;
+    padding: 50px;
+    background-color: #ffffff;
     border: none;
     border-radius: 25px;
-    color: rgba(2, 4, 119, 0.815);
+    color: rgba(0, 0, 65, 0.815);
     font-size: 1rem;
     cursor: pointer;
     margin-top: 10px;
-    box-shadow: 0 4px 15px rgba(255, 20, 147, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
   }
   
   button:hover {
