@@ -1,5 +1,6 @@
 const dataService = require('../services/dataService');
-const { getSensorData, getHeartRateData, getTemperatureData, getWsClient } = require('../handlers/webSocketHandler');
+const { getSensorData, getHeartRateData, getTemperatureData, 
+    getWsClient, getOxygenData} = require('../handlers/webSocketHandler');
 const WebSocket = require('ws');
 
 
@@ -25,6 +26,14 @@ const sensorData = async (req, res) => {
 
 const sensorTemperature = async (req, res) => {
     res.json(getTemperatureData());
+}
+
+const sensorOxygen = async (req, res) => {
+    res.json(getOxygenData());
+}
+
+const sensorHeartRate = async (req, res) => {
+    res.json(getHeartRateData());
 }
 
 const startSensorData = async (req, res) => {
@@ -67,6 +76,45 @@ const stopTemperature = async (req, res) => {
     }
 }
 
+const startOxygen = async (req, res) => {
+    const wsClient = getWsClient();
+    if (wsClient && wsClient.readyState === WebSocket.OPEN) {
+        wsClient.send('STARTO');
+        res.json({ message: 'Señal de inicio enviada al ESP32' });
+    } else {
+        res.status(500).json({ message: 'No hay conexión WebSocket con el ESP32' });
+    }
+}
+
+const stopOxygen = async (req, res) => {
+    const wsClient = getWsClient();
+    if (wsClient && wsClient.readyState === WebSocket.OPEN) {
+        wsClient.send('STOPO');
+        res.json({ message: 'Señal de parada enviada al ESP32' });
+    } else {
+        res.status(500).json({ message: 'No hay conexión WebSocket con el ESP32' });
+    }
+}
+
+const startHeartRate = async (req, res) => {
+    const wsClient = getWsClient();
+    if(wsClient && wsClient.readyState === WebSocket.OPEN){
+        wsClient.send('STARTH');
+        res.json({message: 'Señal de inicio enviada al ESP32'});
+    } else {
+        res.status(500).json({message: 'No hay conexión WebSocket con el ESP32'});
+    }
+}
+
+const stopHeartRate = async (req, res) => {
+    const wsClient = getWsClient();
+    if(wsClient && wsClient.readyState === WebSocket.OPEN){
+        wsClient.send('STOPH');
+        res.json({message: 'Señal de parada enviada al ESP32'});
+    } else {
+        res.status(500).json({message: 'No hay conexión WebSocket con el ESP32'});
+    }
+}
 
 module.exports = {
     create,
@@ -77,6 +125,12 @@ module.exports = {
     sensorData,
     startSensorData,
     stopSensorData,
-    sensorTemperature
+    sensorTemperature,
+    stopOxygen,
+    startOxygen,
+    sensorOxygen,
+    startHeartRate,
+    stopHeartRate,
+    sensorHeartRate
 }
 

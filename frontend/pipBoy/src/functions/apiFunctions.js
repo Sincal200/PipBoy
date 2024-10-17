@@ -25,7 +25,7 @@ export const stopSending = (setFetchActive) => {
 };
 
 export const startHeartRate = (setHeartRateActive) => {
-  axios.post('https://esp32-jk3y.onrender.com/api/start-heart-rate')
+  axios.post('/start-heart-rate')
     .then(response => {
       console.log(response.data.message);
       setHeartRateActive(true);
@@ -37,7 +37,7 @@ export const startHeartRate = (setHeartRateActive) => {
 };
 
 export const stopHeartRate = (setHeartRateActive) => {
-  axios.post('https://esp32-jk3y.onrender.com/api/stop-heart-rate')
+  axios.post('/stop-heart-rate')
     .then(response => {
       console.log(response.data.message);
       setHeartRateActive(false);
@@ -71,3 +71,28 @@ export const stopTemperature = (setTemperatureActive) => {
       alert('Error al enviar la señal de parada de temperatura');
     });
 };
+
+export const startOxygen = (setOxygenActive) => {
+  axios.post('/start-oxygen')
+    .then(response => {
+      console.log(response.data.message);
+      setOxygenActive(true);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al enviar la señal de inicio de oxigeno');
+    });
+};
+
+export const stopOxygen = (setOxygenActive) => {
+  axios.post('/stop-oxygen')
+    .then(response => {
+      console.log(response.data.message);
+      setOxygenActive(false);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al enviar la señal de detener oxigeno');
+    });
+};
+

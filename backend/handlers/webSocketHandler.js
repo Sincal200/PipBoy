@@ -4,6 +4,7 @@ const EventEmitter = require('events');
 let sensorData = { ir: null, red: null };
 let heartRateData = { bpm: null, avgBpm: null };
 let temperatureData = { temperatureC: null, temperatureF: null };
+let oxygenData = { SpO2: null };
 let wsClient = null;
 
 const dataEmitter = new EventEmitter();
@@ -23,10 +24,16 @@ const handleTemperatureData = (data) => {
     console.log('Temperature data processed:', temperatureData);
 };
 
+const handleOxygenData = (data) => {
+    oxygenData = data;
+    console.log('Oxygen data processed:', oxygenData);
+};
+
 // Register event listeners
 dataEmitter.on('sensor', handleSensorData);
 dataEmitter.on('heartRate', handleHeartRateData);
 dataEmitter.on('temperature', handleTemperatureData);
+dataEmitter.on('SpO2', handleOxygenData);
 
 const wss = new WebSocket.Server({ noServer: true });
 
@@ -49,6 +56,7 @@ wss.on('connection', (ws) => {
 const getSensorData = () => sensorData;
 const getHeartRateData = () => heartRateData;
 const getTemperatureData = () => temperatureData;
+const getOxygenData = () => oxygenData;
 const getWsClient = () => wsClient;
 
 module.exports = {
@@ -56,5 +64,6 @@ module.exports = {
     getSensorData,
     getHeartRateData,
     getTemperatureData,
+    getOxygenData,
     getWsClient
 };

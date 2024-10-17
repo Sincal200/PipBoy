@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 // Icons
 import {
   RiHome3Line,
@@ -11,6 +12,8 @@ import {
 
 const Sidebar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate(); // Inicializa el hook para la navegación
+
   return (
     <>
       <div
@@ -30,32 +33,32 @@ const Sidebar = () => {
           </p>
         </div>
         {/* Nav */}
-        <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] overflow-y-scroll flex flex-col justify-between gap-8">
+        <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] flex flex-col justify-between gap-8">
           <nav className="flex flex-col gap-8">
-            <a
-              href="#"
+            <button
+              onClick={() => navigate("/home")} // Navega a /home
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiHome3Line /> Home
-            </a>
-            <a
-              href="#"
+            </button>
+            <button
+              onClick={() => navigate("/graficas")} // Navega a /graficas
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiFileCopyLine /> BPM Graphics
-            </a>
-            <a
-              href="#"
+            </button>
+            <button
+              onClick={() => navigate("/oxygen")} // Navega a /oxygen
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiWalletLine /> Mmhg
-            </a>
-            <a
-              href="#"
+            </button>
+            <button
+              onClick={() => navigate("/alertas")} // Navega a /alertas
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiPieChartLine /> Alertas
-            </a>
+            </button>
           </nav>
           <div className="bg-primary-900/50 text-white p-4 rounded-xl">
             <p className="text-gray-400">Having troubles?</p>
