@@ -144,6 +144,19 @@ const storeSessionToken = (req, res) => {
     res.status(200).send('Token de sesión recibido y almacenado en la sesión');
 };
 
+const checkSession = (req, res) => {
+    if (!req.session) {
+        return res.status(500).send("Session is not available");
+    }
+
+    const refreshToken = req.session.refreshToken;
+    if (!refreshToken) {
+        return res.status(404).send("No refresh token found in session");
+    }
+
+    res.send({ refreshToken });
+};
+
 module.exports = {
     create,
     test,
@@ -162,6 +175,7 @@ module.exports = {
     sensorHeartRate,
     createOxygen,
     getAllOxygen,
-    storeSessionToken
+    storeSessionToken,
+    checkSession
 }
 
