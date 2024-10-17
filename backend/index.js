@@ -10,8 +10,6 @@ const cookieParser = require('cookie-parser'); // Importar cookie-parser
 
 const app = express();
 
-app.use(cookieParser());
-
 // Configurar el middleware de sesión
 app.use(session({
   secret: 'your_secret_key', // Cambia esto por una clave secreta segura
@@ -19,6 +17,10 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false } // Cambia a true si usas HTTPS
 }));
+
+app.use(cookieParser());
+
+
 
 mongoose.connect(process.env.MONGO_URL, {})
   .then(() => console.log('Connected to MongoDB'))
@@ -36,6 +38,12 @@ server.on('upgrade', (request, socket, head) => {
   wss.handleUpgrade(request, socket, head, (ws) => {
     wss.emit('connection', ws, request);
   });
+});
+
+app.post('http://64.227.110.203:3000/store-session-token', (req, res) => {
+  const { userName } = req.body;
+  req.session.userName = userName;
+  res.status(200).send('User name stored in session');
 });
 
 server.listen(port, () => {
