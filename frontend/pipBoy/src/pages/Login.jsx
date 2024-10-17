@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'tailwindcss/tailwind.css'; // Importa los estilos de Tailwind
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const paraHome = () => {
+    navigate('/home');
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -51,7 +57,7 @@ const Login = () => {
             required
           />
         </div>
-        <button
+        <button onClick={paraHome}
           type="submit"
           className="w-full bg-indigo-500 text-white p-2 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >

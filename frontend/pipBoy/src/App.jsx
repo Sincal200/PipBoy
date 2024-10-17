@@ -2,10 +2,11 @@ import React from 'react';
 import Login from './pages/Login';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import ContenidoApp from './ContenidoApp';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import Graficas from './pages/Graficas';
+import Oxygen from './pages/Oxygen';
+import Temperature from './pages/Temperature'
 
 
 axios.defaults.baseURL = 'http://64.227.110.203:3000';
@@ -28,6 +29,8 @@ function AppContent() {
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/graficas" element={<Graficas />} />
+            <Route path="/oxygen" element={<Oxygen />} />
+            <Route path="/temperature" element={<Temperature />} />
           </Routes>
       </main>
     </div>
