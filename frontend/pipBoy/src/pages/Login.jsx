@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css'; 
+import 'tailwindcss/tailwind.css'; // Importa los estilos de Tailwind
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,30 +19,44 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <div className="input-group">
-          <label htmlFor="email">Email:</label>
+    <div >
+      <form
+        className="bg-white p-6 md:p-8 rounded-lg shadow-lg w-full max-w-xs md:max-w-md lg:max-w-lg"
+        onSubmit={handleSubmit}
+      >
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Login</h2>
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            Email:
+          </label>
           <input
             type="email"
             id="email"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={email}
             onChange={handleEmailChange}
             required
           />
         </div>
-        <div className="input-group">
-          <label htmlFor="password">Password:</label>
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={password}
             onChange={handlePasswordChange}
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Login
+        </button>
       </form>
     </div>
   );
