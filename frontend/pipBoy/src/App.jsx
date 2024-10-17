@@ -21,9 +21,9 @@ function AppContent() {
 
   return (
     
-    <div className="grid lg:grid-cols-4 xl:grid-cols-6 h-screen">
+    <div className={`grid ${showHeader ? 'lg:grid-cols-4 xl:grid-cols-6' : 'grid-cols-1'} h-screen`}>
     {showHeader && <Sidebar />}
-     <main className={`lg:col-span-3 xl:col-span-5 bg-gray-100 p-8 min-h-screen overflow-y-auto`}>  
+    <main className={`lg:col-span-3 xl:col-span-5 bg-gray-100 p-8 ${showHeader ? 'max-h-screen overflow-y-auto' : 'overflow-hidden'}`}>  
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />

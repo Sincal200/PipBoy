@@ -35,7 +35,7 @@ function Graficas() {
   }, [fetchActive]);
 
   const handleNavigateHome = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const handleButtonClick = () => {
