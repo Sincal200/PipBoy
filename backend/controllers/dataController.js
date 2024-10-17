@@ -181,6 +181,35 @@ const login = async (req, res) => {
     }
   };
 
+
+  const signout = async (req, res) => {
+    try {
+      const authHeader = req.headers["authorization"];
+      if (!authHeader) return res.status(401).send("Missing secret header");
+      const secret = authHeader.split(" ")[1];
+  
+      const refreshToken = req.session.refreshToken;
+      if (!refreshToken) return res.status(401).send("Missing refresh token in session");
+  
+      const tenant = req.query.tenant; // Obtener el tenant de los parámetros de la solicitud
+      if (!tenant) return res.status(400).send("Missing tenant");
+  
+      const url = `${process.env.KEYCLOAK_AUTH_SERVER_URL}/realms/${tenant}/protocol/openid-connect/revoke`;
+      const { data } = await axios({
+        method: "post",
+        url,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: `client_id=${tenant}&client_secret=${secret}&token=${refreshToken}&token_type_hint=refresh_token`,
+      });
+      req.session.destroy(); // Destruir la sesión después de cerrar la sesión
+      res.send({ data });
+    } catch (err) {
+      res.status(500).send(`Error logging out: ${err}`);
+    }
+  };
+
 module.exports = {
     create,
     test,
@@ -201,6 +230,7 @@ module.exports = {
     getAllOxygen,
     storeSessionToken,
     checkSession,
-    login
+    login,
+    signout
 }
 
