@@ -5,8 +5,12 @@ const http = require('http');
 const WebSocket = require('ws');
 const { wss } = require('./handlers/webSocketHandler');
 const session = require('express-session');
+const cookieParser = require('cookie-parser'); // Importar cookie-parser
+
 
 const app = express();
+
+app.use(cookieParser());
 
 // Configurar el middleware de sesión
 app.use(session({
