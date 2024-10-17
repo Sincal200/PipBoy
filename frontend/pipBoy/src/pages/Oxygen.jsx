@@ -10,6 +10,7 @@ function Oxygen() {
   const [intervalId, setIntervalId] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
   const navigate = useNavigate();
+  
 
   const sensorOxygen = async () => {
     try {
@@ -57,7 +58,7 @@ function Oxygen() {
   }, [fetchActive]);
 
   const handleNavigateHome = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const handleStartOxygen = () => {

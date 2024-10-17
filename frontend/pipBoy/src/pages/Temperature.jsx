@@ -41,7 +41,7 @@ function Temperature() {
   }, [fetchActive]);
 
   const handleNavigateHome = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const handleButtonClick = () => {
