@@ -159,8 +159,8 @@ const checkSession = (req, res) => {
 
 const login = async (req, res) => {
     try {
-      const { username, password } = req.body;
-      const response = await axios.post(`${process.env.AUTH_URL}/login`, { username, password });
+      const { username, password , tenant} = req.body;
+      const response = await axios.post(`${process.env.AUTH_URL}/login`, { username, password, tenant });
       const { accessToken, refreshToken } = response.data;
   
       // Almacenar el refreshToken en la sesión
