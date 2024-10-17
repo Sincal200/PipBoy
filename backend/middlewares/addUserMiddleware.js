@@ -1,5 +1,5 @@
 const addUserMiddleware = (req, res, next) => {
-    req.body.user = 'usuario_hardcoded'; // Hardcodear el usuario aquí
+    req.body.user = req.body.user || 'usuario_hardcoded'; // Obtener el usuario de la solicitud
     next();
 };
 

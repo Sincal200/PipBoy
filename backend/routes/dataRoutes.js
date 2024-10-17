@@ -6,7 +6,8 @@ const { create, test, getAll, startTemperature, stopTemperature,
   startSensorData, stopSensorData, sensorData, sensorTemperature, 
   sensorOxygen, startOxygen, stopOxygen, startHeartRate, 
   stopHeartRate, sensorHeartRate, getAllOxygen, 
-  createOxygen, storeSessionToken, checkSession, login, signout} = require('../controllers/dataController');
+  createOxygen, storeSessionToken, checkSession, login, signout,
+  setUser} = require('../controllers/dataController');
 
 const allowedOrigins = [
   'https://pipboy-frontend.onrender.com',
@@ -53,5 +54,5 @@ router.get('/check-session', checkSession);
 router.post('/store-session-token', storeSessionToken);
 router.post('/login', login);
 router.get('/signout', signout);
-
+router.post('/set-user', addUserMiddleware, setUser);
 module.exports = router;
