@@ -2,7 +2,7 @@ const dataService = require('../services/dataService');
 const { getSensorData, getHeartRateData, getTemperatureData, 
     getWsClient, getOxygenData} = require('../handlers/webSocketHandler');
 const WebSocket = require('ws');
-const addUserMiddleware = require('../middlewares/addUserMiddleware');
+
 
 
 const test = (req, res) => {
@@ -211,9 +211,7 @@ const login = async (req, res) => {
     }
   };
 
-const setUser = (req, res) => {
-    res.send(`Usuario configurado: ${req.body.user}`);
-};
+  
 
   
 
@@ -238,7 +236,6 @@ module.exports = {
     storeSessionToken,
     checkSession,
     login,
-    signout,
-    setUser
+    signout
 }
 
