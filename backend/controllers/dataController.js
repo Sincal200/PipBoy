@@ -157,6 +157,21 @@ const checkSession = (req, res) => {
     res.send({ refreshToken });
 };
 
+const login = async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const response = await axios.post(`${process.env.AUTH_URL}/login`, { username, password });
+      const { accessToken, refreshToken } = response.data;
+  
+      // Almacenar el refreshToken en la sesión
+      req.session.refreshToken = refreshToken;
+  
+      res.send({ accessToken });
+    } catch (err) {
+      res.status(401).send("Invalid credentials");
+    }
+  };
+
 module.exports = {
     create,
     test,
@@ -176,6 +191,7 @@ module.exports = {
     createOxygen,
     getAllOxygen,
     storeSessionToken,
-    checkSession
+    checkSession,
+    login
 }
 
