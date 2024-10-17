@@ -4,8 +4,17 @@ const dotenv = require('dotenv').config();
 const http = require('http');
 const WebSocket = require('ws');
 const { wss } = require('./handlers/webSocketHandler');
+const session = require('express-session');
 
 const app = express();
+
+// Configurar el middleware de sesión
+app.use(session({
+  secret: 'your_secret_key', // Cambia esto por una clave secreta segura
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Cambia a true si usas HTTPS
+}));
 
 mongoose.connect(process.env.MONGO_URL, {})
   .then(() => console.log('Connected to MongoDB'))

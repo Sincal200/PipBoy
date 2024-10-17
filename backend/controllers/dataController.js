@@ -127,6 +127,23 @@ const stopHeartRate = async (req, res) => {
     }
 }
 
+// Nueva función para almacenar el refreshToken en la sesión
+const storeSessionToken = (req, res) => {
+    const { sessionToken } = req.body;
+
+    if (!sessionToken) {
+        return res.status(400).send('Falta el token de sesión');
+    }
+
+    // Almacenar el token de sesión en la sesión del usuario
+    req.session.refreshToken = sessionToken;
+
+    console.log('Session Token almacenado en la sesión:', req.session.refreshToken);
+
+    // Responder con éxito
+    res.status(200).send('Token de sesión recibido y almacenado en la sesión');
+};
+
 module.exports = {
     create,
     test,
@@ -144,6 +161,7 @@ module.exports = {
     stopHeartRate,
     sensorHeartRate,
     createOxygen,
-    getAllOxygen
+    getAllOxygen,
+    storeSessionToken
 }
 
