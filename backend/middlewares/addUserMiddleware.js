@@ -1,18 +1,7 @@
-const jwt = require('jsonwebtoken');
+let globalUsername = 'usuario_hardcoded'; // Variable global para almacenar el nombre de usuario
 
 const addUserMiddleware = (req, res, next) => {
-    const token = req.headers.authorization?.split(' ')[1];
-    if (token) {
-        try {
-            const decoded = jwt.decode(token);
-            req.body.user = decoded.name || 'usuario_hardcoded';
-        } catch (error) {
-            console.error('Error decoding token:', error);
-            req.body.user = 'usuario_hardcoded';
-        }
-    } else {
-        req.body.user = 'usuario_hardcoded';
-    }
+    req.body.user = globalUsername;
     next();
 };
 

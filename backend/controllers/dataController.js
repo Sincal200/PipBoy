@@ -211,6 +211,12 @@ const login = async (req, res) => {
     }
   };
 
+  // Nueva función para actualizar el nombre de usuario global
+const updateUsername = (req, res) => {
+    globalUsername = req.body.username || 'usuario_hardcoded';
+    res.send(`Username updated to ${globalUsername}`);
+};
+
   
 
   
@@ -236,6 +242,7 @@ module.exports = {
     storeSessionToken,
     checkSession,
     login,
-    signout
+    signout,
+    updateUsername
 }
 
