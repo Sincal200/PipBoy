@@ -2,6 +2,8 @@ const dataService = require('../services/dataService');
 const { getSensorData, getHeartRateData, getTemperatureData, 
     getWsClient, getOxygenData} = require('../handlers/webSocketHandler');
 const WebSocket = require('ws');
+const { setUsername } = require('../middlewares/globalUsername');
+
 
 
 
@@ -211,10 +213,11 @@ const login = async (req, res) => {
     }
   };
 
-  // Nueva función para actualizar el nombre de usuario global
+// Nueva función para actualizar el nombre de usuario global
 const updateUsername = (req, res) => {
-    globalUsername = req.body.username || 'usuario_hardcoded';
-    res.send(`Username updated to ${globalUsername}`);
+    const newUsername = req.body.username || 'usuario_hardcoded';
+    setUsername(newUsername);
+    res.send(`Username updated to ${newUsername}`);
 };
 
   

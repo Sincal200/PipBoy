@@ -1,7 +1,7 @@
-let globalUsername = 'usuario_hardcoded'; // Variable global para almacenar el nombre de usuario
+const { getUsername } = require('./globalUsername');
 
 const addUserMiddleware = (req, res, next) => {
-    req.body.user = globalUsername;
+    req.body.user = getUsername();
     next();
 };
 
