@@ -40,12 +40,6 @@ server.on('upgrade', (request, socket, head) => {
   });
 });
 
-app.post('http://64.227.110.203:3000/store-session-token', (req, res) => {
-  const { userName } = req.body;
-  req.session.userName = userName;
-  res.status(200).send('User name stored in session');
-});
-
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
