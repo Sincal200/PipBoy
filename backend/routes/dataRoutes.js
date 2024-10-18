@@ -8,7 +8,8 @@ const { create, test, getAll, startTemperature, stopTemperature,
   stopHeartRate, sensorHeartRate, getAllOxygen, 
   createOxygen, storeSessionToken, checkSession, login,
   updateUsername, createDevice, getDevice,
-  createHeartRate, getAllHeartRate, getAverageTemperature} = require('../controllers/dataController');
+  createHeartRate, getAllHeartRate, getAverageTemperature,
+  storeDeviceId, getDeviceId} = require('../controllers/dataController');
 
 const allowedOrigins = [
   'https://pipboy-frontend.onrender.com',
