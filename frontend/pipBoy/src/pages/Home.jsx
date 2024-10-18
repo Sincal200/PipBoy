@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { RiLineChartLine, RiHashtag } from "react-icons/ri";
+import axios from "axios"; // Importa axios
+import {toast} from 'react-hot-toast'
+
 
 function Home() {
   const navigate = useNavigate();
@@ -14,6 +17,32 @@ function Home() {
   const paraPagina3 = () => {
     navigate('/temperature');
   };
+
+  const fetchData = async () => {
+    const token = sessionStorage.getItem('token'); // Obtener el token de la sesión del navegador
+    const tenant = 'asgard'; // Reemplaza con el valor real de tenant
+
+    try {
+      const response = await axios.get('http://localhost:8081/api/auth/verifyToken', {
+        headers: {
+          Authorization: `${token}`
+        },
+        params: {
+          tenant: tenant
+        }
+      });
+      console.log(response.data);
+    } catch (error) {
+      toast.error('Session expired. Please login again');
+      navigate('/'); // Redirigir al login en caso de error
+    }
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(fetchData, 30000); // Ejecutar fetchData cada 30 segundos
+
+    return () => clearInterval(intervalId); // Limpiar el intervalo cuando el componente se desmonte
+  }, []);
 
   return (
     <>

@@ -1,12 +1,14 @@
 import React from 'react';
 import Login from './pages/Login';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import {AuthProvider} from './context/AuthContext';
 import axios from 'axios';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import Graficas from './pages/Graficas';
 import Oxygen from './pages/Oxygen';
 import Temperature from './pages/Temperature'
+import { Toaster } from 'react-hot-toast'
 
 
 axios.defaults.baseURL = 'http://64.227.110.203:3000';
@@ -23,6 +25,8 @@ function AppContent() {
   return (
     
     <div className={`grid ${showHeader ? 'lg:grid-cols-4 xl:grid-cols-6' : 'grid-cols-1'} h-screen`}>
+    <AuthProvider>
+    <Toaster position='bottom-right' toastOptions={{duration:3000}} />
     {showHeader && <Sidebar />}
     <main className={`lg:col-span-3 xl:col-span-5 bg-gray-100 p-8 ${showHeader ? 'max-h-screen overflow-y-auto' : 'overflow-hidden'}`}>  
           <Routes>
@@ -33,6 +37,7 @@ function AppContent() {
             <Route path="/temperature" element={<Temperature />} />
           </Routes>
       </main>
+    </AuthProvider>
     </div>
   );
 }
