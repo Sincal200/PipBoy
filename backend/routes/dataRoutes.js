@@ -31,7 +31,7 @@ const corsOptions = {
 router.use(cors(corsOptions));
 
 router.post('/temperatures',addUserMiddleware , create);
-router.post('/oxygen', createOxygen);
+router.post('/oxygen',addUserMiddleware ,createOxygen);
 router.get('/', test);
 router.get('/getTemperatures', getAll);
 router.get('/getOxygen', getAllOxygen);
