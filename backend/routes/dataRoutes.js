@@ -63,5 +63,9 @@ router.post('/login', login);
 // Nuevo endpoint para actualizar el nombre de usuario global
 router.post('/update-username', updateUsername);
 
+// Nuevos endpoints para almacenar y recuperar el ID del dispositivo
+router.post('/store-device-id', storeDeviceId);
+router.get('/get-device-id', getDeviceId);
+
 
 module.exports = router;

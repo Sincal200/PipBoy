@@ -1,11 +1,23 @@
 const { getUsername } = require('../middlewares/globalUsername');
-
 const dataService = require('../services/dataService');
 const { getSensorData, getHeartRateData, getTemperatureData, 
     getWsClient, getOxygenData} = require('../handlers/webSocketHandler');
 const WebSocket = require('ws');
 const { setUsername } = require('../middlewares/globalUsername');
 
+let deviceId = null; // Variable para almacenar el ID del dispositivo
+
+const storeDeviceId = (req, res) => {
+    deviceId = req.body.deviceId;
+    res.status(200).send('Device ID stored successfully');
+};
+
+const getDeviceId = (req, res) => {
+    if (!deviceId) {
+        return res.status(404).send('No device ID found');
+    }
+    res.status(200).json({ deviceId });
+};
 
 const test = (req, res) => {
     res.json('Hello from the server!');
@@ -256,10 +268,6 @@ const updateUsername = (req, res) => {
     res.send(`Username updated to ${newUsername}`);
 };
 
-  
-
-  
-
 module.exports = {
     create,
     test,
@@ -287,6 +295,8 @@ module.exports = {
     getDevice,
     createHeartRate,
     getAllHeartRate,
-    getAverageTemperature
+    getAverageTemperature,
+    storeDeviceId,
+    getDeviceId
 }
 
