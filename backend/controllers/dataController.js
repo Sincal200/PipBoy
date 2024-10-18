@@ -1,4 +1,4 @@
-const { getUsername } = require('./globalUsername');
+const { getUsername } = require('../middlewares/globalUsername');
 
 const dataService = require('../services/dataService');
 const { getSensorData, getHeartRateData, getTemperatureData, 
