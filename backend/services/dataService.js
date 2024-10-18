@@ -35,14 +35,22 @@ const getHeartData = async () => {
     return await HeartData.find({});
 }
 
-const getAverageTemperature = async () => {
-    const temperatures = await Temperature.find({});
+const getAverageTemperature = async (userId) => {
+    const temperatures = await Temperature.find({ user: userId });
     const totalTemperatures = temperatures.length;
+
+    if (totalTemperatures === 0) {
+        return {
+            averageTemperatureC: 0,
+            averageTemperatureF: 0
+        };
+    }
+
     const sumTemperaturesC = temperatures.reduce((sum, temp) => sum + temp.temperatureC, 0);
     const sumTemperaturesF = temperatures.reduce((sum, temp) => sum + temp.temperatureF, 0);
     
-    const averageTemperatureC = sumTemperaturesC / totalTemperatures;
-    const averageTemperatureF = sumTemperaturesF / totalTemperatures;
+    const averageTemperatureC = (sumTemperaturesC / totalTemperatures).toFixed(2);
+    const averageTemperatureF = (sumTemperaturesF / totalTemperatures).toFixed(2);
     
     return {
         averageTemperatureC,

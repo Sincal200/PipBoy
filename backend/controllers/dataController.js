@@ -1,3 +1,5 @@
+const { getUsername } = require('./globalUsername');
+
 const dataService = require('../services/dataService');
 const { getSensorData, getHeartRateData, getTemperatureData, 
     getWsClient, getOxygenData} = require('../handlers/webSocketHandler');
@@ -71,10 +73,18 @@ const getAllHeartRate = async (req, res) => {
 }
 
 const getAverageTemperature = async (req, res) => {
-    const averageTemperatures = await dataService.getAverageTemperature();
-    res.json(averageTemperatures);
-}
+    const userId = getUsername();; // Obtener el userId de los parámetros de la consulta
+    if (!userId) {
+        return res.status(400).json({ error: 'UserId is required' });
+    }
 
+    try {
+        const averageTemperatures = await dataService.getAverageTemperature(userId);
+        res.json(averageTemperatures);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching average temperature' });
+    }
+}
 
 const startSensorData = async (req, res) => {
     const wsClient = getWsClient();
