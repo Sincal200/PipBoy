@@ -60,6 +60,17 @@ const getDevice = async (req, res) => {
     const device = await dataService.getDevice();
     res.json(device);
 }
+
+const createHeartRate = async (req, res) => {
+    const heartRate = req.body;
+    const newHeartRate = await dataService.createHeartData(heartRate);
+    res.json(newHeartRate);
+}
+
+const getAllHeartRate = async (req, res) => {
+    const heartRate = await dataService.getHeartData();
+    res.json(heartRate);
+}
     
 
 const startSensorData = async (req, res) => {
@@ -260,6 +271,8 @@ module.exports = {
     signout,
     updateUsername,
     createDevice,
-    getDevice
+    getDevice,
+    createHeartRate,
+    getAllHeartRate
 }
 
