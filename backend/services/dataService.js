@@ -35,6 +35,21 @@ const getHeartData = async () => {
     return await HeartData.find({});
 }
 
+const getAverageTemperature = async () => {
+    const temperatures = await Temperature.find({});
+    const totalTemperatures = temperatures.length;
+    const sumTemperaturesC = temperatures.reduce((sum, temp) => sum + temp.temperatureC, 0);
+    const sumTemperaturesF = temperatures.reduce((sum, temp) => sum + temp.temperatureF, 0);
+    
+    const averageTemperatureC = sumTemperaturesC / totalTemperatures;
+    const averageTemperatureF = sumTemperaturesF / totalTemperatures;
+    
+    return {
+        averageTemperatureC,
+        averageTemperatureF
+    };
+}
+
 module.exports = {
     create,
     getAll,
@@ -43,5 +58,6 @@ module.exports = {
     createDevice,
     getDevice,
     createHeartData,
-    getHeartData
+    getHeartData,
+    getAverageTemperature
 }

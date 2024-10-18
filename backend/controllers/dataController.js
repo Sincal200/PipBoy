@@ -5,8 +5,6 @@ const WebSocket = require('ws');
 const { setUsername } = require('../middlewares/globalUsername');
 
 
-
-
 const test = (req, res) => {
     res.json('Hello from the server!');
 }
@@ -71,7 +69,12 @@ const getAllHeartRate = async (req, res) => {
     const heartRate = await dataService.getHeartData();
     res.json(heartRate);
 }
-    
+
+const getAverageTemperature = async (req, res) => {
+    const averageTemperatures = await dataService.getAverageTemperature();
+    res.json(averageTemperatures);
+}
+
 
 const startSensorData = async (req, res) => {
     const wsClient = getWsClient();
@@ -273,6 +276,7 @@ module.exports = {
     createDevice,
     getDevice,
     createHeartRate,
-    getAllHeartRate
+    getAllHeartRate,
+    getAverageTemperature
 }
 
