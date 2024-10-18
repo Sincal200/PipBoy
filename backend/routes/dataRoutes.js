@@ -7,7 +7,7 @@ const { create, test, getAll, startTemperature, stopTemperature,
   sensorOxygen, startOxygen, stopOxygen, startHeartRate, 
   stopHeartRate, sensorHeartRate, getAllOxygen, 
   createOxygen, storeSessionToken, checkSession, login,
-  updateUsername} = require('../controllers/dataController');
+  updateUsername, createDevice, getDevice} = require('../controllers/dataController');
 
 const allowedOrigins = [
   'https://pipboy-frontend.onrender.com',
@@ -49,6 +49,8 @@ router.post('/start-heart-rate', startHeartRate);
 router.post('/stop-heart-rate', stopHeartRate);
 router.get('/sensor-heart-rate', sensorHeartRate);
 router.get('/check-session', checkSession);
+router.post('/device', createDevice);
+router.get('/getDevice', getDevice);
 
 // Nuevo endpoint para almacenar el refreshToken en la sesión
 router.post('/store-session-token', storeSessionToken);

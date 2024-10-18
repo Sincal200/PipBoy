@@ -50,6 +50,18 @@ const sensorHeartRate = async (req, res) => {
     res.json(getHeartRateData());
 }
 
+const createDevice = async (req, res) => {
+    const device = req.body;
+    const newDevice = await dataService.createDevice(device);
+    res.json(newDevice);
+}
+
+const getDevice = async (req, res) => {
+    const device = await dataService.getDevice();
+    res.json(device);
+}
+    
+
 const startSensorData = async (req, res) => {
     const wsClient = getWsClient();
     if (wsClient && wsClient.readyState === WebSocket.OPEN) {
@@ -246,6 +258,8 @@ module.exports = {
     checkSession,
     login,
     signout,
-    updateUsername
+    updateUsername,
+    createDevice,
+    getDevice
 }
 
