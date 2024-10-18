@@ -3,11 +3,15 @@ const {Schema} = mongoose;
 
 const HeartDataSchema = new Schema(
     {
-        beatsPerMinute: {
+        type: {
+            type: String,
+            required: true
+        },
+        bpm: {
             type: Number,
             required: true
         },
-        beatAvg: {
+        avgBpm: {
             type: Number,
             required: true
         },
