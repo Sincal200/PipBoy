@@ -10,6 +10,8 @@ function Temperature() {
   const [fetchActive, setFetchActive] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [counter, setCounter] = useState(25);
+  const [counterIntervalId, setCounterIntervalId] = useState(null);
   const navigate = useNavigate();
 
   const sensorTemperature = async () => {
@@ -65,8 +67,20 @@ function Temperature() {
       stopTemperature(setFetchActive);
       clearTimeout(timeoutId);
       clearInterval(intervalId);
+      clearInterval(counterIntervalId);
+      setCounter(25); // Reset counter to 25 when stopped
     } else {
       startTemperature(setFetchActive);
+      const counterInterval = setInterval(() => {
+        setCounter(prevCounter => {
+          if (prevCounter === 1) {
+            return 25;
+          } else {
+            return prevCounter - 1;
+          }
+        });
+      }, 1000);
+      setCounterIntervalId(counterInterval);
     }
     console.log("fetchActive after click:", !fetchActive);
   };
@@ -80,9 +94,7 @@ function Temperature() {
         Back
       </button>
       <div className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-md w-full">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-          Body Temperature
-        </h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Body Temperature</h1>
         {temperature !== null ? (
           <div className="text-4xl md:text-7xl font-bold text-blue-500 mb-4">
             {temperature}°C
