@@ -99,10 +99,6 @@ const getAverageHeartRate = async (userId) => {
     };
 }
 
-module.exports = {
-    // ...otros métodos
-    getAverageHeartRate
-}
 
 module.exports = {
     create,
@@ -114,5 +110,6 @@ module.exports = {
     createHeartData,
     getHeartData,
     getAverageTemperature,
-    getAverageOxygen
+    getAverageOxygen,
+    getAverageHeartRate
 }
