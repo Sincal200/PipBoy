@@ -268,6 +268,25 @@ const updateUsername = (req, res) => {
     res.send(`Username updated to ${newUsername}`);
 };
 
+const getAverageOxygen = async (req, res) => {
+    const userId = getUsername(); // Obtener el userId de los parámetros de la consulta
+    if (!userId) {
+        return res.status(400).json({ error: 'UserId is required' });
+    }
+
+    try {
+        const averageOxygen = await dataService.getAverageOxygen(userId);
+        res.json(averageOxygen);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching average oxygen' });
+    }
+}
+
+module.exports = {
+    // ...otros métodos
+    getAverageOxygen
+}
+
 module.exports = {
     create,
     test,
@@ -297,6 +316,7 @@ module.exports = {
     getAllHeartRate,
     getAverageTemperature,
     storeDeviceId,
-    getDeviceId
+    getDeviceId,
+    getAverageOxygen
 }
 

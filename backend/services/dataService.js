@@ -58,6 +58,24 @@ const getAverageTemperature = async (userId) => {
     };
 }
 
+const getAverageOxygen = async (userId) => {
+    const oxygenData = await Oxygen.find({ user: userId });
+    const totalOxygenData = oxygenData.length;
+
+    if (totalOxygenData === 0) {
+        return {
+            averageOxygen: 0
+        };
+    }
+
+    const sumOxygen = oxygenData.reduce((sum, data) => sum + data.value, 0);
+    const averageOxygen = (sumOxygen / totalOxygenData).toFixed(2);
+
+    return {
+        averageOxygen
+    };
+}
+
 module.exports = {
     create,
     getAll,
@@ -67,5 +85,6 @@ module.exports = {
     getDevice,
     createHeartData,
     getHeartData,
-    getAverageTemperature
+    getAverageTemperature,
+    getAverageOxygen
 }
