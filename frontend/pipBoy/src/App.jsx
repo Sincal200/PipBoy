@@ -10,7 +10,7 @@ import Oxygen from './pages/Oxygen';
 import Temperature from './pages/Temperature'
 import { Toaster } from 'react-hot-toast'
 import DeviceSelection from './pages/DeviceSelection';
-
+import Alertas from './pages/Alertas';
 
 axios.defaults.baseURL = 'http://64.227.110.203:3000';
 axios.defaults.withCredentials = true;
@@ -37,6 +37,7 @@ function AppContent() {
             <Route path="/oxygen" element={<Oxygen />} />
             <Route path="/temperature" element={<Temperature />} />
             <Route path="/device-selection" element={<DeviceSelection />} />
+            <Route path="/alertas" element={<Alertas/>} />
           </Routes>
       </main>
     </AuthProvider>

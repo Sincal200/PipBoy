@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { startOxygen, stopOxygen ,startHeartRate, stopHeartRate } from '../functions/apiFunctions';
+import { startOxygen, stopOxygen, startHeartRate, stopHeartRate } from '../functions/apiFunctions';
+import {toast} from 'react-hot-toast'
+
 
 function Oxygen() {
   const [fetchActive, setFetchActive] = useState(false);
@@ -17,9 +19,19 @@ function Oxygen() {
       const response = await axios.get('/sensor-oxygen');
       if (response.data.value !== undefined) {
         setOxygenLevel(response.data.value);
+        const alertSettings = JSON.parse(localStorage.getItem("alertSettings"));
+        const oxygenMin = alertSettings?.oxygenMin;
+        const oxygenMax = alertSettings?.oxygenMax;      
+        if (response.data.value >= oxygenMin && response.data.value <= oxygenMax) {
+          stopOxygen(setFetchActive);
+          stopHeartRate(setFetchActive);
+          toast.error(
+            `¡Alerta! Temperatura se encuentra entre: (${oxygenMin}-${oxygenMax}) con ${response.data.value}°C`
+          );
+        }
       }
     } catch (error) {
-      console.error('Error fetching temperature data:', error);
+      console.error('Error fetching oxygen data:', error);
     }
   };
 
@@ -30,7 +42,7 @@ function Oxygen() {
         setaverageBPM(response.data.avgBpm);
       }
     } catch (error) {
-      console.error('Error fetching temperature data:', error);
+      console.error('Error fetching heart rate data:', error);
     }
   };
 
@@ -81,8 +93,8 @@ function Oxygen() {
         Back
       </button>
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md text-center">
-      <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">BPM Average</h1>
-      <div className="text-4xl md:text-6xl font-bold text-red-500 mb-4">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">BPM Average</h1>
+        <div className="text-4xl md:text-6xl font-bold text-red-500 mb-4">
           {averageBPM !== null ? `${averageBPM}` : '--'}
         </div>
         <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">Blood Oxygen Level</h1>

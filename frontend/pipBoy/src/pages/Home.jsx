@@ -17,6 +17,9 @@ function Home() {
   const paraPagina3 = () => {
     navigate('/temperature');
   };
+  const paraPagina4 = () => {
+    navigate('/alertas');
+  };
 
   const fetchData = async () => {
     const token = sessionStorage.getItem('token'); // Obtener el token de la sesión del navegador
