@@ -10,7 +10,8 @@ import Oxygen from './pages/Oxygen';
 import Temperature from './pages/Temperature'
 import { Toaster } from 'react-hot-toast'
 import DeviceSelection from './pages/DeviceSelection';
-
+import { AuthVerificationProvider } from './context/AuthVerificationContext';
+import { DeviceProvider } from './context/DeviceContext';
 
 axios.defaults.baseURL = 'http://64.227.110.203:3000';
 axios.defaults.withCredentials = true;
@@ -27,6 +28,8 @@ function AppContent() {
     
     <div className={`grid ${showHeader ? 'lg:grid-cols-4 xl:grid-cols-6' : 'grid-cols-1'} h-screen`}>
     <AuthProvider>
+    <AuthVerificationProvider>
+    <DeviceProvider>
     <Toaster position='bottom-right' toastOptions={{duration:3000}} />
     {showHeader && <Sidebar />}
     <main className={`lg:col-span-3 xl:col-span-5 bg-gray-100 p-8 ${showHeader ? 'max-h-screen overflow-y-auto' : 'overflow-hidden'}`}>  
@@ -39,6 +42,8 @@ function AppContent() {
             <Route path="/device-selection" element={<DeviceSelection />} />
           </Routes>
       </main>
+      </DeviceProvider>
+      </AuthVerificationProvider>
     </AuthProvider>
     </div>
   );

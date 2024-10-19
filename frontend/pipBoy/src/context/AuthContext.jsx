@@ -129,10 +129,15 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const hasRole = (role) => {
+    return user?.realm_access?.roles.includes(role);
+  };
+
+
   
 
   return (
-    <AuthContext.Provider value={{ accessToken, refreshToken, user, login, logout, fetchUserData }}>
+    <AuthContext.Provider value={{ accessToken, refreshToken, user, login, logout, fetchUserData,hasRole }}>
       {children}
     </AuthContext.Provider>
   );

@@ -9,9 +9,10 @@ function Oxygen() {
   const [averageBPM, setaverageBPM] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [counter, setCounter] = useState(25);
+  const [counterIntervalId, setCounterIntervalId] = useState(null);
   const navigate = useNavigate();
   
-
   const sensorOxygen = async () => {
     try {
       const response = await axios.get('/sensor-oxygen');
@@ -64,6 +65,16 @@ function Oxygen() {
   const handleStartOxygen = () => {
     startOxygen(setFetchActive);
     startHeartRate(setFetchActive);
+    const counterInterval = setInterval(() => {
+      setCounter(prevCounter => {
+        if (prevCounter === 1) {
+          return 25;
+        } else {
+          return prevCounter - 1;
+        }
+      });
+    }, 1000);
+    setCounterIntervalId(counterInterval);
   };
 
   const handleStopOxygen = () => {
@@ -71,6 +82,8 @@ function Oxygen() {
     stopHeartRate(setFetchActive);
     clearTimeout(timeoutId);
     clearInterval(intervalId);
+    clearInterval(counterIntervalId);
+    setCounter(25); // Reset counter to 25 when stopped
   };
 
   return (
@@ -80,16 +93,19 @@ function Oxygen() {
         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 absolute top-4 left-4">
         Back
       </button>
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md text-center">
-      <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">BPM Average</h1>
-      <div className="text-4xl md:text-6xl font-bold text-red-500 mb-4">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md text-center relative">
+        <div className="absolute top-4 right-4 bg-gray-200 text-green-500 text-sm font-bold p-2 rounded-full shadow-md">
+          {counter}
+        </div>
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">BPM Average</h1>
+        <div className="text-4xl md:text-6xl font-bold text-red-500 mb-4">
           {averageBPM !== null ? `${averageBPM}` : '--'}
         </div>
         <h1 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">Blood Oxygen Level</h1>
         <div className="text-4xl md:text-6xl font-bold text-blue-500 mb-4">
           {oxygenLevel !== null ? `${oxygenLevel}%` : '--'}
         </div>
-        <div className="flex flex-col md:flex-row justify-around">
+        <div className="flex flex-col md:flex-row justify-around mt-4">
           <button 
             onClick={handleStartOxygen} 
             className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mb-4 md:mb-0">

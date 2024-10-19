@@ -13,19 +13,15 @@ import {
 } from "react-icons/ri";
 
 const Sidebar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, hasRole } = useContext(AuthContext);
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
   const { logout } = useContext(AuthContext);
 
   const handleLogout = async () => {
-    const success = await logout();
-    if (success) {
       navigate('/');
-    }
   };
 
-  
 
   return (
     <>
@@ -62,24 +58,15 @@ const Sidebar = () => {
             >
               <RiHome3Line /> Home
             </button>
-            <button
-              onClick={() => navigate("/graficas")}
-              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
-            >
-              <RiFileCopyLine /> BPM Graphics
-            </button>
-            <button
-              onClick={() => navigate("/oxygen")}
-              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
-            >
-              <RiWalletLine /> Mmhg
-            </button>
-            <button
-              onClick={() => navigate("/alertas")}
-              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
-            >
-              <RiPieChartLine /> Alertas
-            </button>
+
+            {hasRole('admin') && (
+              <button
+                onClick={() => navigate("/device-selection")}
+                className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
+              >
+                <RiPieChartLine /> Device Manager
+              </button>
+            )}
             <button
               onClick={handleLogout}
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
