@@ -9,7 +9,7 @@ const { create, test, getAll, startTemperature, stopTemperature,
   createOxygen, storeSessionToken, checkSession, login,
   updateUsername, createDevice, getDevice,
   createHeartRate, getAllHeartRate, getAverageTemperature,
-  storeDeviceId, getDeviceId, getAverageOxygen} = require('../controllers/dataController');
+  storeDeviceId, getDeviceId, getAverageOxygen, getAverageHeartRate} = require('../controllers/dataController');
 
 const allowedOrigins = [
   'https://pipboy-frontend.onrender.com',
@@ -69,5 +69,7 @@ router.post('/store-device-id', storeDeviceId);
 router.get('/get-device-id', getDeviceId);
 
 router.get('/average-oxygen', getAverageOxygen);
+
+router.get('/average-heart-rate', getAverageHeartRate);
 
 module.exports = router;

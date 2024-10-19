@@ -282,9 +282,23 @@ const getAverageOxygen = async (req, res) => {
     }
 }
 
+const getAverageHeartRate = async (req, res) => {
+    const userId = getUsername(); // Obtener el userId de los parámetros de la consulta
+    if (!userId) {
+        return res.status(400).json({ error: 'UserId is required' });
+    }
+
+    try {
+        const averageHeartRate = await dataService.getAverageHeartRate(userId);
+        res.json(averageHeartRate);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching average heart rate' });
+    }
+}
+
 module.exports = {
     // ...otros métodos
-    getAverageOxygen
+    getAverageHeartRate
 }
 
 module.exports = {
@@ -317,6 +331,7 @@ module.exports = {
     getAverageTemperature,
     storeDeviceId,
     getDeviceId,
-    getAverageOxygen
+    getAverageOxygen,
+    getAverageHeartRate
 }
 

@@ -76,6 +76,34 @@ const getAverageOxygen = async (userId) => {
     };
 }
 
+const getAverageHeartRate = async (userId) => {
+    const heartData = await HeartData.find({ user: userId });
+    const totalHeartData = heartData.length;
+
+    if (totalHeartData === 0) {
+        return {
+            averageBpm: 0,
+            averageAvgBpm: 0
+        };
+    }
+
+    const sumBpm = heartData.reduce((sum, data) => sum + data.bpm, 0);
+    const sumAvgBpm = heartData.reduce((sum, data) => sum + data.avgBpm, 0);
+
+    const averageBpm = (sumBpm / totalHeartData).toFixed(2);
+    const averageAvgBpm = (sumAvgBpm / totalHeartData).toFixed(2);
+
+    return {
+        averageBpm,
+        averageAvgBpm
+    };
+}
+
+module.exports = {
+    // ...otros métodos
+    getAverageHeartRate
+}
+
 module.exports = {
     create,
     getAll,
