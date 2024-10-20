@@ -20,11 +20,11 @@ jobs:
 
     - name: Copy docker-compose to server
       run: |
-        ssh -o StrictHostKeyChecking=no root@64.227.110.203 "mkdir -p /root/PipBoy"  # Ruta en el servidor
-        scp -o StrictHostKeyChecking=no docker-compose.yaml root@64.227.110.203:/root/PipBoy/docker-compose.yaml
-        scp -o StrictHostKeyChecking=no -r backend root@64.227.110.203:/root/PipBoy/backend  # Copia todo el backend
-        scp -o StrictHostKeyChecking=no -r frontend root@64.227.110.203:/root/PipBoy/frontend  # Copia todo el frontend
+        ssh -o StrictHostKeyChecking=no root@64.227.110.203 "mkdir -p /root/Actions"  # Ruta en el servidor
+        scp -o StrictHostKeyChecking=no docker-compose.yaml root@64.227.110.203:/root/Actions/docker-compose.yaml
+        scp -o StrictHostKeyChecking=no -r backend root@64.227.110.203:/root/Actions/backend  # Copia todo el backend
+        scp -o StrictHostKeyChecking=no -r frontend root@64.227.110.203:/root/Actions/frontend  # Copia todo el frontend
 
     - name: Deploy app with Docker Compose
       run: |
-        ssh -o StrictHostKeyChecking=no root@64.227.110.203 "cd /root/PipBoy && docker compose down && docker compose pull && docker compose up -d --build"
+        ssh -o StrictHostKeyChecking=no root@64.227.110.203 "cd /root/Actions && docker compose down && docker compose pull && docker compose up -d --build"
