@@ -27,4 +27,4 @@ jobs:
 
     - name: Deploy app with Docker Compose
       run: |
-        ssh -o StrictHostKeyChecking=no root@64.227.110.203 "cd /root/PipBoy/pipBoy && docker compose down && docker compose pull && docker compose up -d --build"
+        ssh -o StrictHostKeyChecking=no root@64.227.110.203 "cd /root/PipBoy && docker compose down && docker compose pull && docker compose up -d --build"
