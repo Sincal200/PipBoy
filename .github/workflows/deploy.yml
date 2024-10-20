@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean
 on:
   push:
     branches:
-      - main  # O la rama que uses para el despliegue
+      - master  # O la rama que uses para el despliegue
 
 jobs:
   deploy:
