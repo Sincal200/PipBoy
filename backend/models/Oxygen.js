@@ -1,21 +1,19 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
-const TemperatureSchema = new Schema(
+const OxygenSchema = new Schema(
     {
-        temperatureC: {
-            type: Number,
-            default: 0,
+        type: {
+            type: String,
             required: true
         },
-        temperatureF: {
+        value: {
             type: Number,
-            default: 0,
             required: true
         },
         user:{
             type: String
-        }
+        },
     },
     {
         timestamps: true,
@@ -23,6 +21,5 @@ const TemperatureSchema = new Schema(
         
 );
 
-const Temperature = mongoose.model('Temperature', TemperatureSchema);
-
-module.exports = Temperature;
+const Oxygen = mongoose.model('Oxygen', OxygenSchema);
+module.exports = Oxygen;

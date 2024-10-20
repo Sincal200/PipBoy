@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import 'tailwindcss/tailwind.css'; // Importa los estilos de Tailwind
+import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
+import {toast} from 'react-hot-toast'
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const paraHome = () => {
     navigate('/home');
@@ -19,9 +22,13 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email, 'Password:', password);
+    const success = await login(email, password, 'asgard');
+    if (success) {
+      toast.success('Login successfull. Welcome to the app');
+      paraHome();
+    }
   };
 
   return (
@@ -57,7 +64,7 @@ const Login = () => {
             required
           />
         </div>
-        <button onClick={paraHome}
+        <button
           type="submit"
           className="w-full bg-indigo-500 text-white p-2 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >

@@ -1,10 +1,91 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { RiLineChartLine, RiHashtag } from "react-icons/ri";
+import axios from "axios"; // Importa axios
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../context/AuthContext';
+import { DeviceContext } from '../context/DeviceContext'; 
+
+const BlockedContent = () => (
+  <div>
+    <h1>Access Denied</h1>
+    <p>You do not have permission to view this content.</p>
+  </div>
+);
 
 function Home() {
+  const [averageTemperature1, setAverageTemperature] = useState(null);
+  const [averageOxygen1, setAverageOxygen] = useState(null);
+  const [averageBPM1, setAverageBPM] = useState(null);
+
+  const fetchAverageTemperature = async () => {
+    const token = sessionStorage.getItem('token'); // Obtener el token de la sesión del navegador
+
+    try {
+      const tempResponse = await axios.get('/average-temperature', {
+        headers: {
+          Authorization: `${token}`
+        }
+      });
+      const averageTempC = parseFloat(tempResponse.data.averageTemperatureC);
+      if (!isNaN(averageTempC)) {
+        setAverageTemperature(averageTempC.toFixed(2)); // Redondear a 2 decimales
+      } else {
+        console.error('Invalid temperature value:', tempResponse.data.averageTemperatureC);
+      }
+    } catch (error) {
+      console.error('Error fetching average temperature:', error);
+    }
+  };
+
+  const fetchAverageBPM = async () => {
+    const token = sessionStorage.getItem('token'); // Obtener el token de la sesión del navegador
+
+    try {
+      const tempResponse = await axios.get('/average-heart-rate', {
+        headers: {
+          Authorization: `${token}`
+        }
+      });
+      const averageAvgBpm = parseFloat(tempResponse.data.averageAvgBpm);
+      if (!isNaN(averageAvgBpm)) {
+        setAverageBPM(averageAvgBpm.toFixed(2)); // Redondear a 2 decimales
+      } else {
+        console.error('Invalid BPM value:', tempResponse.data.averageAvgBpm);
+      }
+    } catch (error) {
+      console.error('Error fetching average BPM:', error);
+    }
+  };
+
+  const fetchAverageOyxgen = async () => {
+    const token = sessionStorage.getItem('token'); // Obtener el token de la sesión del navegador
+
+    try {
+      const tempResponse = await axios.get('/average-oxygen', {
+        headers: {
+          Authorization: `${token}`
+        }
+      });
+      const averageOxygen = parseFloat(tempResponse.data.averageOxygen);
+      if (!isNaN(averageOxygen)) {
+        setAverageOxygen(averageOxygen.toFixed(2)); // Redondear a 2 decimales
+      } else {
+        console.error('Invalid oxygen value:', tempResponse.data.averageOxygen);
+      }
+    } catch (error) {
+      console.error('Error fetching average oxygen:', error);
+    }
+  };
+
+
+  const { comparisonValue, averageTemperature, averageOxygen, loading, error, isInitialized } = useContext(DeviceContext);
+
+  const { user } = useContext(AuthContext); // Usa el contexto
+  
+
   const navigate = useNavigate();
-  {/* aca si quieren ponen mas redireccionamientos */}
+
   const paraGraficas = () => {
     navigate('/graficas');
   };
@@ -14,6 +95,50 @@ function Home() {
   const paraPagina3 = () => {
     navigate('/temperature');
   };
+  const paraPagina4 = () => {
+    navigate('/alertas');
+  };
+
+  
+  const fetchData = async () => {
+    const token = sessionStorage.getItem('token'); // Obtener el token de la sesión del navegador
+    const tenant = 'asgard'; // Reemplaza con el valor real de tenant
+
+    try {
+      const response = await axios.get('http://localhost:8081/api/auth/verifyToken', {
+        headers: {
+          Authorization: `${token}`
+        },
+        params: {
+          tenant: tenant
+        }
+      });
+      console.log(response.data);
+    } catch (error) {
+      toast.error('Session expired. Please login again');
+      navigate('/'); // Redirigir al login en caso de error
+    }
+  };
+
+  useEffect(() => {
+    fetchAverageTemperature();
+    fetchAverageOyxgen();
+    fetchAverageBPM();
+    const intervalId = setInterval(fetchData, 30000); // Ejecutar fetchData cada 30 segundos
+    return () => clearInterval(intervalId); // Limpiar el intervalo cuando el componente se desmonte
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (user.Device !== comparisonValue) {
+    return <BlockedContent />;
+  }
 
   return (
     <>
@@ -92,69 +217,67 @@ function Home() {
             <div className="grid grid-cols-1 xl:grid-cols-4 items-center gap-4 mb-4">
               <div className="col-span-2 flex items-center gap-4">
                 <img
-                  src="https://img.freepik.com/vector-gratis/corazon-verde-elemento-cardiografo_53876-116868.jpg"
+                  src="https://img.freepik.com/free-vector/cartoon-style-realistic-vector-icon-hot-cold-thermometer-cartoon-style-isolated-white-back_134830-1459.jpg?t=st=1729301989~exp=1729305589~hmac=35823c3b03d66494e0818f6f510b8ef810fbe481f43165cde8a05f3f6caf867d&w=996"
                   className="w-14 h-14 object-cover rounded-xl"
                   alt="BPM Graphics"
                 />
                 <div>
-                  <h3 className="font-bold">BPM Graphics</h3>
-                  <p className="text-gray-500">BPM</p>
+                  <h3 className="font-bold">Body Temperature</h3>
+                  <p className="text-gray-500">Average of the most recent data</p>
                 </div>
               </div>
               <div>
-                <span className="bg-green-100 text-green-800 py-1 px-3 rounded-full font-medium">
-                  High
-                </span>
+          
               </div>
               <div>
-                <span className="font-bold"> 115 BPM</span>
+              <span className="font-bold">{averageTemperature1 ? `${averageTemperature1} °C` : 'Loading...'}</span>
               </div>
             </div>
             {/* Card 2 */}
             <div className="grid grid-cols-1 xl:grid-cols-4 items-center gap-4 mb-4">
               <div className="col-span-2 flex items-center gap-4">
                 <img
-                  src="https://img.freepik.com/foto-gratis/alegre-joven-deportista-posando-mostrando-pulgares-arriba-gesto_171337-8194.jpg"
+                  src="https://img.freepik.com/free-vector/donation-blood-bag-hanging-icon_24877-83378.jpg"
                   className="w-14 h-14 object-cover rounded-xl"
                   alt="Blood Oxygen"
                 />
                 <div>
-                  <h3 className="font-bold">blood oxygen</h3>
-                  <p className="text-gray-500">Oxygen</p>
+                  <h3 className="font-bold">Blood Xxygen</h3>
+                  <p className="text-gray-500">Average of the most recent data</p>
                 </div>
               </div>
               <div>
-                <span className="bg-red-100 text-red-800 py-1 px-3 rounded-full font-medium">
-                  Low
-                </span>
               </div>
               <div>
-                <span className="font-bold"> 99%</span>
+              <span className="font-bold">{averageOxygen1 ? `${averageOxygen1} %` : 'Loading...'}</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 xl:grid-cols-4 items-center gap-4 mb-4">
+              <div className="col-span-2 flex items-center gap-4">
+                <img
+                  src="https://img.freepik.com/free-vector/healthy-heart-symbol-hospital-care-icon-isolated_24877-83410.jpg"
+                  className="w-14 h-14 object-cover rounded-xl"
+                  alt="Blood Oxygen"
+                />
+                <div>
+                  <h3 className="font-bold">BPM</h3>
+                  <p className="text-gray-500">Average of the most recent data</p>
+                </div>
+              </div>
+              <div>
+              </div>
+              <div>
+              <span className="font-bold">{averageBPM1 ? `${averageBPM1} BPM` : 'Loading...'}</span>
               </div>
             </div>
           </div>
-          <div className="bg-primary-900 text-gray-300 p-8 rounded-xl shadow-2xl flex items-center justify-between flex-wrap xl:flex-nowrap gap-8">
-            <div>
-              <RiHashtag className="text-4xl -rotate-12" />
-            </div>
-            <div>
-              <h5 className="font-bold text-white">follow us on our Instagram channel</h5>
-              <h5>Join slack channel</h5>
-            </div>
-            <div className="w-full xl:w-auto">
-              <button className="bg-primary-100 py-2 px-6 rounded-xl text-white w-full">
-               Follow now
-              </button>
-            </div>
-          </div>
+        
         </div>
-        <div>
-          <h1 className="text-2xl font-bold mb-8">Recommended</h1>
-            {/* Future sections */}
-        </div>
+
       </section>
     </>
   );
+  
 }
 
 export default Home;

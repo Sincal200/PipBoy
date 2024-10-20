@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
-const TemperatureSchema = new Schema(
+const HeartDataSchema = new Schema(
     {
-        temperatureC: {
-            type: Number,
-            default: 0,
+        type: {
+            type: String,
             required: true
         },
-        temperatureF: {
+        bpm: {
             type: Number,
-            default: 0,
+            required: true
+        },
+        avgBpm: {
+            type: Number,
             required: true
         },
         user:{
@@ -20,9 +22,7 @@ const TemperatureSchema = new Schema(
     {
         timestamps: true,
     }
-        
 );
 
-const Temperature = mongoose.model('Temperature', TemperatureSchema);
-
-module.exports = Temperature;
+const HeartData = mongoose.model('HeartData', HeartDataSchema);
+module.exports = HeartData;

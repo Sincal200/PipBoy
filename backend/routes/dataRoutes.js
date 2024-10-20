@@ -1,9 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const addUserMiddleware = require('../middlewares/addUserMiddleware');
 const { create, test, getAll, startTemperature, stopTemperature, 
   startSensorData, stopSensorData, sensorData, sensorTemperature, 
-  sensorOxygen, startOxygen, stopOxygen, startHeartRate, stopHeartRate, sensorHeartRate} = require('../controllers/dataController');
+  sensorOxygen, startOxygen, stopOxygen, startHeartRate, 
+  stopHeartRate, sensorHeartRate, getAllOxygen, 
+  createOxygen, storeSessionToken, checkSession, login,
+  updateUsername, createDevice, getDevice,
+  createHeartRate, getAllHeartRate, getAverageTemperature,
+  storeDeviceId, getDeviceId, getAverageOxygen, getAverageHeartRate} = require('../controllers/dataController');
 
 const allowedOrigins = [
   'https://pipboy-frontend.onrender.com',
@@ -26,9 +32,12 @@ const corsOptions = {
 
 router.use(cors(corsOptions));
 
-router.post('/temperatures', create);
+router.post('/temperatures',addUserMiddleware , create);
+router.post('/oxygen',addUserMiddleware ,createOxygen);
 router.get('/', test);
 router.get('/getTemperatures', getAll);
+router.get('/getOxygen', getAllOxygen);
+
 router.get('/sensor-data', sensorData);
 router.post('/start-temperature', startTemperature);
 router.post('/stop-temperature', stopTemperature);
@@ -41,7 +50,26 @@ router.get('/sensor-oxygen', sensorOxygen);
 router.post('/start-heart-rate', startHeartRate);
 router.post('/stop-heart-rate', stopHeartRate);
 router.get('/sensor-heart-rate', sensorHeartRate);
+router.get('/check-session', checkSession);
+router.post('/device', createDevice);
+router.get('/getDevice', getDevice);
+router.post('/heart-rate',addUserMiddleware ,createHeartRate);
+router.get('/getHeartRate', getAllHeartRate);
+router.get('/average-temperature', getAverageTemperature);
 
+// Nuevo endpoint para almacenar el refreshToken en la sesión
+router.post('/store-session-token', storeSessionToken);
+router.post('/login', login);
 
+// Nuevo endpoint para actualizar el nombre de usuario global
+router.post('/update-username', updateUsername);
+
+// Nuevos endpoints para almacenar y recuperar el ID del dispositivo
+router.post('/store-device-id', storeDeviceId);
+router.get('/get-device-id', getDeviceId);
+
+router.get('/average-oxygen', getAverageOxygen);
+
+router.get('/average-heart-rate', getAverageHeartRate);
 
 module.exports = router;
