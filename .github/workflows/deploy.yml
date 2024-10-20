@@ -17,7 +17,11 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.DO_SSH_PRIVATE_KEY }}
-
+        
+    - name: Clear existing files in the target folder
+      run: |
+        ssh -o StrictHostKeyChecking=no root@64.227.110.203 "rm -rf /root/Actions*"
+        
     - name: Copy docker-compose to server
       run: |
         ssh -o StrictHostKeyChecking=no root@64.227.110.203 "mkdir -p /root/Actions"  # Ruta en el servidor
