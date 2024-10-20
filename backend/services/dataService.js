@@ -2,7 +2,7 @@ const Temperature = require('../models/Temperature');
 const Oxygen = require('../models/Oxygen');
 const Device = require('../models/Device');
 const HeartData = require('../models/HeartData');
-
+//test
 const getAll = async () => {
     return await Temperature.find({});
 }
