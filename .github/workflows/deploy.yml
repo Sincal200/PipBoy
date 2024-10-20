@@ -22,7 +22,6 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no root@64.227.110.203 "mkdir -p /var/www/pipBoy"  # Ruta en el servidor
         scp -o StrictHostKeyChecking=no docker-compose.yaml root@64.227.110.203:/var/www/docker-compose.yaml
-        scp -o StrictHostKeyChecking=no backend/.env root@64.227.110.203:/var/www/backend/.env  # Si tienes archivos .env específicos
         scp -o StrictHostKeyChecking=no -r backend root@64.227.110.203:/var/www/pipBoy/backend  # Copia todo el backend
         scp -o StrictHostKeyChecking=no -r frontend root@64.227.110.203:/var/www/pipBoy/frontend  # Copia todo el frontend
 
